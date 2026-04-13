@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 # === PATHS ===
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).resolve().parent
 # _data: prefer parent (local dev), fallback to inside _admin (Railway)
 _data_parent = BASE_DIR.parent / "_data"
 _data_local = BASE_DIR / "_data"
