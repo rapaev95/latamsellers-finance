@@ -925,6 +925,90 @@ def _handle_sku_classification(L, ufile, file_bytes, ext):
 
 
 # ─────────────────────────────────────────────
+# Orphan pacote classification for vendas_ml
+# ─────────────────────────────────────────────
+
+def _handle_orphan_pacotes(L, ufile, file_bytes, ext):
+    """Detect 'Pacote de N produtos' rows with empty SKU and let user assign project."""
+    from reports import load_orphan_assignments, save_orphan_assignment
+    PROJECTS = load_projects()
+    try:
+        if ext == ".csv":
+            df = pd.read_csv(io.BytesIO(file_bytes), sep=";", skiprows=5, encoding="utf-8")
+        else:
+            df = pd.read_excel(io.BytesIO(file_bytes), header=5)
+
+        if "Estado" not in df.columns or "SKU" not in df.columns:
+            return
+
+        # Find pacote rows with empty SKU that can't be resolved via order_id
+        order_to_sku = {}
+        order_col = "N.º de venda"
+        for _, row in df.iterrows():
+            oid = str(row.get(order_col, "") or "").strip()
+            sku = str(row.get("SKU", "") or "").strip()
+            if oid and sku and oid not in order_to_sku:
+                order_to_sku[oid] = sku
+
+        orphans = []
+        for _, row in df.iterrows():
+            estado = str(row.get("Estado", ""))
+            sku = str(row.get("SKU", "") or "").strip()
+            if not estado.startswith("Pacote de") or sku:
+                continue
+            oid = str(row.get(order_col, "") or "").strip()
+            if oid in order_to_sku:
+                continue  # resolvable via order_id
+            total = row.get("Total (BRL)", 0)
+            orphans.append({"order_id": oid, "total": total, "estado": estado})
+
+        if not orphans:
+            return
+
+        # Deduplicate by order_id
+        seen = set()
+        unique_orphans = []
+        for o in orphans:
+            if o["order_id"] not in seen:
+                seen.add(o["order_id"])
+                unique_orphans.append(o)
+
+        existing = load_orphan_assignments()
+        # Filter out already assigned
+        unassigned = [o for o in unique_orphans if o["order_id"] not in existing]
+
+        if not unassigned:
+            return
+
+        _render_warn_header(t("up_orphan_title", L).format(n=len(unassigned)))
+
+        ecom_proj_list = ["—"] + [pid for pid, p in PROJECTS.items() if p.get("type") in ("ecom", "hybrid")]
+        assignments = []
+        for o in unassigned:
+            c1, c2, c3 = st.columns([3, 2, 2])
+            c1.code(f"Order: {o['order_id']}")
+            c2.caption(f"{o['estado']} · R$ {o['total']:,.2f}")
+            chosen = c3.selectbox(
+                t("up_project", L), ecom_proj_list,
+                key=f"orphan_{o['order_id']}_{ufile.name}",
+                label_visibility="collapsed",
+            )
+            if chosen != "—":
+                assignments.append((o["order_id"], chosen))
+
+        if assignments:
+            st.markdown('<div class="up-save-btn">', unsafe_allow_html=True)
+            if st.button(t("up_orphan_save", L).format(n=len(assignments)), key=f"save_orphan_{ufile.name}"):
+                for oid, proj in assignments:
+                    save_orphan_assignment(oid, proj)
+                st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
+
+    except Exception as e:
+        st.warning(f"⚠️ Orphan check: {e}")
+
+
+# ─────────────────────────────────────────────
 # PDF handling (DAS, NFS-e)
 # ─────────────────────────────────────────────
 
@@ -1457,6 +1541,7 @@ def render_upload_page(L):
         # ── SKU classification (vendas_ml) ──
         if detected_source == "vendas_ml" and ext in (".csv", ".xlsx", ".xls"):
             _handle_sku_classification(L, ufile, file_bytes, ext)
+            _handle_orphan_pacotes(L, ufile, file_bytes, ext)
 
         # ── Transaction classification (bank statements) ──
         tx_classifications = None

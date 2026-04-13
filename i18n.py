@@ -210,6 +210,9 @@ TRANSLATIONS = {
         "up_saved_file": "Сохранено: {f}",
         "up_no_projects": "Проекты не найдены",
         "up_project": "Проект",
+        "up_orphan_title": "⚠️ {n} пакетных заказов без SKU — назначьте проект",
+        "up_orphan_save": "💾 Сохранить {n} назначений пакетов",
+        "up_orphan_all_ok": "✅ Все пакетные заказы назначены",
 
         # Project management
         "page_projects": "⚙️ Проекты",
@@ -789,6 +792,9 @@ TRANSLATIONS = {
         "up_saved_file": "Salvo: {f}",
         "up_no_projects": "Nenhum projeto encontrado",
         "up_project": "Projeto",
+        "up_orphan_title": "⚠️ {n} pedidos em pacote sem SKU — atribua o projeto",
+        "up_orphan_save": "💾 Salvar {n} atribuições de pacotes",
+        "up_orphan_all_ok": "✅ Todos os pacotes foram atribuídos",
 
         # Project management
         "page_projects": "⚙️ Projetos",
