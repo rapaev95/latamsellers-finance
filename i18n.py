@@ -190,6 +190,7 @@ TRANSLATIONS = {
 
         # Project management
         "page_projects": "⚙️ Проекты",
+        "page_land": "🌍 Лендинг",
         "page_classify": "🏷️ Классификация",
         "page_bank_rules": "🏦 Правила выписок",
         "bank_rules_title": "🏦 Правила автоклассификации банковских выписок",
@@ -743,6 +744,7 @@ TRANSLATIONS = {
 
         # Project management
         "page_projects": "⚙️ Projetos",
+        "page_land": "🌍 Landing",
         "page_classify": "🏷️ Classificação",
         "page_bank_rules": "🏦 Regras de extratos",
         "bank_rules_title": "🏦 Regras de classificação automática de extratos",
