@@ -2062,15 +2062,14 @@ elif page == t("page_reports", L):
             period_to = max(_vendas_dates)
             # Show info about covered period
             _loaded_months = sorted({d.strftime("%Y-%m") for d in _vendas_dates})
-            st.info(
-                f"📊 **Период данных Vendas ML:** {period_from.strftime('%d.%m.%Y')} — {period_to.strftime('%d.%m.%Y')}"
-                f"  \nФайл: `{_vendas_file}` · Месяцы: {', '.join(_loaded_months)}"
-                f"  \nДля расширения периода загрузите Vendas ML за недостающие месяцы на странице **Загрузка**."
-            )
+            st.info(t("report_vendas_period", L).format(
+                d1=period_from.strftime('%d.%m.%Y'), d2=period_to.strftime('%d.%m.%Y'),
+                f=_vendas_file, m=', '.join(_loaded_months),
+            ))
         else:
             period_from = project_start or _date(2025, 9, 1)
             period_to = _date.today()
-            st.warning("⚠ Файл Vendas ML не найден. Загрузите отчёт на странице **Загрузка**.")
+            st.warning(t("report_no_vendas", L))
 
         try:
             pnl = compute_pnl(sel_project, (period_from, period_to))
