@@ -150,10 +150,13 @@ def _cached_dashboard_pending_classification(
 
 
 # ─────────────────────────────────────────────
-# THEME STATE (must be before CSS)
+# THEME & LANG STATE (read from query params to survive reload)
 # ─────────────────────────────────────────────
+_qp_early = st.query_params
 if "theme" not in st.session_state:
-    st.session_state.theme = "night"
+    st.session_state.theme = _qp_early.get("theme", "night")
+if "lang" not in st.session_state:
+    st.session_state.lang = _qp_early.get("lang", "ru")
 _IS_NIGHT = st.session_state.theme == "night"
 
 # ─────────────────────────────────────────────
@@ -444,12 +447,7 @@ hr, [data-testid="stHorizontalRule"] {{
 # NexusBI SIDEBAR — Branding + Lang + Theme
 # ─────────────────────────────────────────────
 
-# Persist lang & theme via query params (survive page reload)
-_qp = st.query_params
-if "lang" not in st.session_state:
-    st.session_state.lang = _qp.get("lang", "ru")
-if "theme" not in st.session_state:
-    st.session_state.theme = _qp.get("theme", "night")
+# Lang & theme already initialized above (THEME & LANG STATE block)
 
 L = st.session_state.lang
 
