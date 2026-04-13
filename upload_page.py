@@ -1242,6 +1242,58 @@ def _save_file(ufile, file_bytes, ext, detected_source, upload_month,
 
 
 # ═══════════════════════════════════════════════
+def _render_clear_data_section():
+    """Render the clear data expander."""
+    st.markdown("---")
+    with st.expander("🗑️ Limpar dados / Очистить данные"):
+        st.caption("Isso apagará os arquivos carregados. Esta ação não pode ser desfeita.")
+        months_with_data = []
+        if DATA_DIR.exists():
+            for d in sorted(DATA_DIR.iterdir()):
+                if d.is_dir() and any(d.iterdir()):
+                    file_count = sum(1 for f in d.iterdir() if f.is_file())
+                    total_size = sum(f.stat().st_size for f in d.iterdir() if f.is_file())
+                    months_with_data.append((d.name, file_count, total_size))
+        if months_with_data:
+            for mname, fcount, fsize in months_with_data:
+                size_str = f"{fsize / 1024:.0f} KB" if fsize < 1024 * 1024 else f"{fsize / 1024 / 1024:.1f} MB"
+                st.text(f"📁 {mname}: {fcount} arquivo(s), {size_str}")
+            col_del_month, col_del_all = st.columns(2)
+            with col_del_month:
+                del_month = st.selectbox(
+                    "Mês", [m[0] for m in months_with_data],
+                    key="del_month_select", label_visibility="collapsed",
+                )
+                if st.button("🗑️ Apagar mês", key="del_month_btn"):
+                    import shutil
+                    target = DATA_DIR / del_month
+                    if target.exists():
+                        shutil.rmtree(target)
+                        st.success(f"✅ {del_month} apagado")
+                        st.rerun()
+            with col_del_all:
+                if st.button("⚠️ Apagar TUDO", key="del_all_btn", type="secondary"):
+                    st.session_state["confirm_delete_all"] = True
+                if st.session_state.get("confirm_delete_all"):
+                    st.warning("Tem certeza? Todos os dados serão apagados!")
+                    c_yes, c_no = st.columns(2)
+                    with c_yes:
+                        if st.button("✅ Sim, apagar tudo", key="del_all_confirm"):
+                            import shutil
+                            for d in DATA_DIR.iterdir():
+                                if d.is_dir():
+                                    shutil.rmtree(d)
+                            st.session_state.pop("confirm_delete_all", None)
+                            st.success("✅ Todos os dados apagados")
+                            st.rerun()
+                    with c_no:
+                        if st.button("❌ Cancelar", key="del_all_cancel"):
+                            st.session_state.pop("confirm_delete_all", None)
+                            st.rerun()
+        else:
+            st.info("Nenhum dado carregado.")
+
+
 # MAIN ENTRY POINT
 # ═══════════════════════════════════════════════
 
@@ -1285,6 +1337,7 @@ def render_upload_page(L):
 
     if not uploaded:
         _render_dropzone_caption(L)
+        _render_clear_data_section()
         return
 
     # ── Process each uploaded file ──
@@ -1428,52 +1481,4 @@ def render_upload_page(L):
                 st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Clear data section ──
-    st.markdown("---")
-    with st.expander("🗑️ Limpar dados / Очистить данные"):
-        st.caption("Isso apagará os arquivos carregados. Esta ação não pode ser desfeita.")
-        months_with_data = []
-        if DATA_DIR.exists():
-            for d in sorted(DATA_DIR.iterdir()):
-                if d.is_dir() and any(d.iterdir()):
-                    file_count = sum(1 for f in d.iterdir() if f.is_file())
-                    total_size = sum(f.stat().st_size for f in d.iterdir() if f.is_file())
-                    months_with_data.append((d.name, file_count, total_size))
-        if months_with_data:
-            for mname, fcount, fsize in months_with_data:
-                size_str = f"{fsize / 1024:.0f} KB" if fsize < 1024 * 1024 else f"{fsize / 1024 / 1024:.1f} MB"
-                st.text(f"📁 {mname}: {fcount} arquivo(s), {size_str}")
-            col_del_month, col_del_all = st.columns(2)
-            with col_del_month:
-                del_month = st.selectbox(
-                    "Mês", [m[0] for m in months_with_data],
-                    key="del_month_select", label_visibility="collapsed",
-                )
-                if st.button("🗑️ Apagar mês", key="del_month_btn"):
-                    import shutil
-                    target = DATA_DIR / del_month
-                    if target.exists():
-                        shutil.rmtree(target)
-                        st.success(f"✅ {del_month} apagado")
-                        st.rerun()
-            with col_del_all:
-                if st.button("⚠️ Apagar TUDO", key="del_all_btn", type="secondary"):
-                    st.session_state["confirm_delete_all"] = True
-                if st.session_state.get("confirm_delete_all"):
-                    st.warning("Tem certeza? Todos os dados serão apagados!")
-                    c_yes, c_no = st.columns(2)
-                    with c_yes:
-                        if st.button("✅ Sim, apagar tudo", key="del_all_confirm"):
-                            import shutil
-                            for d in DATA_DIR.iterdir():
-                                if d.is_dir():
-                                    shutil.rmtree(d)
-                            st.session_state.pop("confirm_delete_all", None)
-                            st.success("✅ Todos os dados apagados")
-                            st.rerun()
-                    with c_no:
-                        if st.button("❌ Cancelar", key="del_all_cancel"):
-                            st.session_state.pop("confirm_delete_all", None)
-                            st.rerun()
-        else:
-            st.info("Nenhum dado carregado.")
+    _render_clear_data_section()
