@@ -2028,10 +2028,51 @@ elif page == t("page_reports", L):
 
         baseline = get_baseline_date(sel_project)
         project_start = get_project_start_date(sel_project)
-        col_from, col_to = st.columns(2)
-        default_from = project_start or _date(2025, 9, 1)
-        period_from = col_from.date_input(t("report_period_from", L), default_from, key=f"pf_{sel_project}")
-        period_to = col_to.date_input(t("report_period_to", L), _date.today(), key=f"pt_{sel_project}")
+
+        # ── Auto-detect period from loaded vendas data ──
+        from reports import load_vendas_ml_report
+        import re as _re_period
+        _pt_months = {
+            "janeiro": 1, "fevereiro": 2, "março": 3, "marco": 3, "abril": 4,
+            "maio": 5, "junho": 6, "julho": 7, "agosto": 8, "setembro": 9,
+            "outubro": 10, "novembro": 11, "dezembro": 12,
+        }
+        def _parse_pt_date(s):
+            g = _re_period.search(r"(\d+)\s+de\s+(\w+)\s+de\s+(\d{4})", str(s))
+            if not g:
+                return None
+            mn = _pt_months.get(g.group(2).lower())
+            if not mn:
+                return None
+            try:
+                return _date(int(g.group(3)), mn, int(g.group(1)))
+            except (ValueError, TypeError):
+                return None
+
+        _vendas_df = load_vendas_ml_report()
+        _vendas_dates = []
+        _vendas_file = ""
+        if _vendas_df is not None and not _vendas_df.empty:
+            _vendas_file = _vendas_df.attrs.get("__source_file", "")
+            for _, _vr in _vendas_df.iterrows():
+                _vd = _parse_pt_date(_vr.get("Data da venda"))
+                if _vd is not None:
+                    _vendas_dates.append(_vd)
+
+        if _vendas_dates:
+            period_from = min(_vendas_dates)
+            period_to = max(_vendas_dates)
+            # Show info about covered period
+            _loaded_months = sorted({d.strftime("%Y-%m") for d in _vendas_dates})
+            st.info(
+                f"📊 **Период данных Vendas ML:** {period_from.strftime('%d.%m.%Y')} — {period_to.strftime('%d.%m.%Y')}"
+                f"  \nФайл: `{_vendas_file}` · Месяцы: {', '.join(_loaded_months)}"
+                f"  \nДля расширения периода загрузите Vendas ML за недостающие месяцы на странице **Загрузка**."
+            )
+        else:
+            period_from = project_start or _date(2025, 9, 1)
+            period_to = _date.today()
+            st.warning("⚠ Файл Vendas ML не найден. Загрузите отчёт на странице **Загрузка**.")
 
         try:
             pnl = compute_pnl(sel_project, (period_from, period_to))
@@ -2183,7 +2224,7 @@ elif page == t("page_reports", L):
             st.caption(f"📋 DAS confirmados (PDF): **{pdf_count}** | DAS estimados: **{pending_count}**")
 
             if pending_count > 0:
-                st.info("💡 Загрузи DAS PDF файлы (PGDASD-*.pdf) через Upload — система автоматически заменит оценки на реальные значения.")
+                st.info(t("up_das_hint", L))
 
 
         with tab_dds:
@@ -2564,6 +2605,9 @@ elif page == t("page_reports", L):
 
     # ──────────────── SERVICES: GANZA ────────────────
     elif sel_project == "GANZA":
+        tab_opiu, tab_dds, tab_balance = st.tabs([
+            t("tab_opiu", L), t("tab_dds", L), t("tab_balance", L)
+        ])
         with tab_opiu:
             st.markdown(f"### GANZA — {t('period', L)}")
             st.info(t("no_data_load", L))
@@ -2674,7 +2718,7 @@ elif page == t("page_sku", L):
     def _scan_unclassified_skus():
         vendas_files = list(DATA_DIR.rglob("vendas_ml*.csv"))
         if not vendas_files:
-            legacy = BASE_DIR / "vendas"
+            legacy = BASE_DIR.parent / "vendas"
             vendas_files = sorted(legacy.glob("20260325*.csv"))
         if not vendas_files:
             return None
@@ -3673,7 +3717,7 @@ elif page == t("page_classify", L):
                 splits = meta["splits"]
 
                 if not txs:
-                    st.info("Нет транзакций")
+                    st.info(t("up_no_tx", L))
                     continue
 
                 df_existing = pd.DataFrame(txs)
@@ -3762,11 +3806,11 @@ elif page == t("page_classify", L):
                                     sv[proj] = v
                             total = sum(sv.values())
                             if abs(total - total_abs) < 0.01:
-                                st.success(f"Разбито: R$ {total:,.2f}")
+                                st.success(t("up_split_done", L).format(v=f"{total:,.2f}"))
                             elif total == 0:
-                                st.info(f"Не разбито (R$ {total_abs:,.2f})")
+                                st.info(t("up_split_not", L).format(v=f"{total_abs:,.2f}"))
                             else:
-                                st.warning(f"Остаток R$ {total_abs - total:,.2f}")
+                                st.warning(t("up_split_remain", L).format(v=f"{total_abs - total:,.2f}"))
                             tx_splits_persist[group_key] = {
                                 "total": total_abs,
                                 "split": sv,
@@ -3782,7 +3826,7 @@ elif page == t("page_classify", L):
                     }
                     with open(cf["json_path"], "w", encoding="utf-8") as f:
                         json_mod.dump(new_data, f, indent=2, ensure_ascii=False, default=str)
-                    st.success(f"Сохранено: {cf['json_path'].name}")
+                    st.success(t("up_saved_file", L).format(f=cf['json_path'].name))
                     st.rerun()
 
 
@@ -3916,7 +3960,7 @@ elif page == t("page_projects", L):
     )
 
     if not _filtered_projects:
-        st.info("Проекты не найдены")
+        st.info(t("up_no_projects", L))
 
     for pid, pdata in _filtered_projects.items():
         ptype = (pdata.get("type") or "—").upper()
