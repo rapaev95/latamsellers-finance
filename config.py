@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 # === PATHS ===
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "_data"
 PROJETOS_DIR = BASE_DIR / "projetos"
 PROJECTS_DB_PATH = Path(__file__).parent / "projects_db.json"
