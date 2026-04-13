@@ -1,0 +1,393 @@
+{
+  "ARTUR": {
+    "type": "ecom",
+    "description": "Bolsas/Mochilas (JOED)",
+    "status": "approved",
+    "last_report": "2026-03-26",
+    "report_period": "2025-09-01 / 2026-03-25",
+    "next_close": "2026-06-01",
+    "baseline_date": "2026-03-25",
+    "manual_publicidade": [
+      {
+        "desde": "2025-09-01",
+        "ate": "2025-11-30",
+        "valor": 19440.6,
+        "note": "Подтверждено 03/12/25 (Set–Nov/25)"
+      },
+      {
+        "desde": "2025-12-01",
+        "ate": "2025-12-31",
+        "valor": 1964.94,
+        "note": "Фактура ML (Dez/25)"
+      }
+    ],
+    "manual_supplier": [
+      {
+        "date": "2025-08-23",
+        "valor": 17600.0,
+        "source": "Nubank",
+        "note": "JOED 23/08/25"
+      },
+      {
+        "date": "2025-09-26",
+        "valor": 11450.0,
+        "source": "Nubank",
+        "note": "JOED 26/09/25"
+      },
+      {
+        "date": "2025-12-10",
+        "valor": 17000.0,
+        "source": "Nubank",
+        "note": "JOED 10/12/25"
+      },
+      {
+        "date": "2026-01-16",
+        "valor": 12260.0,
+        "source": "Nubank",
+        "note": "JOED 16/01/26"
+      },
+      {
+        "date": "2025-09-01",
+        "valor": 31970.0,
+        "source": "Mercado Pago",
+        "note": "Bags MP (Mariz+JOED)"
+      }
+    ],
+    "partner_contributions": [],
+    "manual_expenses": [],
+    "baseline_overrides": {
+      "publicidade": 24929.06,
+      "devolucoes": 10994.96,
+      "full_express": 3550.64,
+      "das": 7232.7,
+      "armazenagem": 1220.0,
+      "aluguel": 7369.38
+    },
+    "tasks": [
+      {
+        "id": "avg_cost_per_unit",
+        "title": "Указать средний себес единицы товара",
+        "priority": "high",
+        "note": "Без него COGS считается ориентировочно (56,2% от bruto). Нужно: общее кол-во куплено и cost per unit"
+      },
+      {
+        "id": "stock_count",
+        "title": "Текущий сток на складе Full (qtd единиц по SKU)",
+        "priority": "high",
+        "note": "Для расчёта стоимости остатков на балансе"
+      },
+      {
+        "id": "joed_units_per_purchase",
+        "title": "Кол-во единиц в каждой партии JOED",
+        "priority": "medium",
+        "note": "Чтобы посчитать cost per unit точно"
+      }
+    ],
+    "avg_cost_per_unit_brl": null,
+    "total_units_purchased": null,
+    "current_stock_units": null,
+    "stock_units_external": 0,
+    "stock_units_external_note": "Кол-во единиц у Leticia / внешнего 3PL — указывать вручную",
+    "usdt_investments": [
+      {
+        "date": "2025-09",
+        "usd": 3790,
+        "rate_brl": 5.3835,
+        "brl": 20403.47,
+        "source": "Bybit P2P (média Set/25)"
+      },
+      {
+        "date": "2025-12",
+        "usd": 3943,
+        "rate_brl": 5.4588,
+        "brl": 21524.05,
+        "source": "Bybit P2P (média Dez/25)"
+      }
+    ],
+    "rental_paid_from_usdt": {
+      "usd": 1350,
+      "brl": 7369.38,
+      "note": "Аренда — доход компании, не вложение в товар"
+    },
+    "net_investment_in_goods": {
+      "usd": 6383,
+      "brl": 34558.14
+    },
+    "sku_prefixes": [
+      "sumka",
+      "HB",
+      "A21190",
+      "A21189",
+      "A21192",
+      "BL20457",
+      "MB80002",
+      "w02"
+    ],
+    "mlb_fallback": [
+      "MLB4473507183",
+      "MLB6250798664",
+      "MLB6249986102",
+      "MLB4473507179",
+      "MLB6250966574",
+      "MLB6250798666",
+      "MLB4473636441",
+      "MLB6250128938",
+      "MLB4473713697",
+      "MLB6249986100",
+      "MLB6250472442",
+      "MLB6250180378",
+      "MLB6250102796",
+      "MLB4182955743",
+      "MLB4359073315",
+      "MLB4359073317",
+      "MLB4359123607",
+      "MLB4359212237",
+      "MLB4359236507",
+      "MLB4359320985",
+      "MLB4359320987",
+      "MLB4359337601",
+      "MLB4359337603",
+      "MLB4516196937",
+      "MLB4516198225",
+      "MLB4516221837",
+      "MLB4516221839",
+      "MLB4516232029",
+      "MLB5649425304",
+      "MLB5661364294",
+      "MLB6037722052",
+      "MLB6037734706",
+      "MLB6037843564",
+      "MLB6037868584",
+      "MLB6038371900",
+      "MLB6038448090",
+      "MLB6038461130",
+      "MLB6038555168",
+      "MLB6038620154",
+      "MLB6038655050",
+      "MLB6038689064",
+      "MLB6038986332",
+      "MLB6249986104",
+      "MLB6250193360",
+      "MLB6428291846",
+      "MLB6428325900"
+    ],
+    "rental": {
+      "rate_usd": 800,
+      "period": "quarter",
+      "start_date": "2025-09-01",
+      "due_dates": [
+        "2025-09-01",
+        "2025-12-01",
+        "2026-03-01",
+        "2026-06-01",
+        "2026-09-01",
+        "2026-12-01"
+      ],
+      "payments": [
+        {
+          "date": "2025-09-01",
+          "usd": 500,
+          "status": "paid",
+          "quarter": "Set/25 (parcial)"
+        },
+        {
+          "date": "2025-12-01",
+          "usd": 800,
+          "status": "paid",
+          "quarter": "Dez/25"
+        },
+        {
+          "date": "2026-03-01",
+          "usd": 850,
+          "status": "pending",
+          "quarter": "Mar/26 (pendente)"
+        }
+      ],
+      "total_paid_usd": 1300,
+      "total_pending_usd": 850,
+      "note": "Início Set/25. Vence 1o do trimestre (Set, Dez, Mar, Jun)"
+    }
+  },
+  "ORGANIZADORES": {
+    "type": "ecom",
+    "description": "Organizador porta-malas (Alexander)",
+    "status": "pending",
+    "last_report": null,
+    "report_period": "2026-01-10 / 2026-04-10",
+    "next_close": "2026-04-10",
+    "baseline_overrides": {
+      "publicidade": 2394.88,
+      "full_express": 3346.26
+    },
+    "sku_prefixes": [
+      "CRB-"
+    ],
+    "mlb_fallback": [
+      "MLB6155302096"
+    ],
+    "rental": {
+      "rate_usd": 800,
+      "period": "quarter",
+      "start_date": "2026-01-10",
+      "due_dates": [
+        "2026-04-10",
+        "2026-07-10",
+        "2026-10-10",
+        "2027-01-10"
+      ],
+      "payments": [
+        {
+          "date": "2026-04-10",
+          "usd": 800,
+          "status": "pending",
+          "quarter": "Q1 Jan-Abr/26 (vence 10/Abr/26)"
+        }
+      ],
+      "total_paid_usd": 0,
+      "total_pending_usd": 800,
+      "note": "Alexander. Periodo: 10/Jan — 10/Abr. $800/trimestre. Vence 10/Abr/26"
+    }
+  },
+  "JOOM": {
+    "type": "ecom",
+    "description": "Produtos importados Joom (50/50)",
+    "status": "pending",
+    "last_report": null,
+    "report_period": null,
+    "next_close": null,
+    "sku_prefixes": [
+      "6077",
+      "6078",
+      "6079",
+      "6080",
+      "6081",
+      "6082"
+    ],
+    "baseline_overrides": {
+      "full_express": 1297.19
+    },
+    "mlb_fallback": [
+      "MLB4420197695",
+      "MLB4433121711",
+      "MLB6143605452",
+      "MLB6143708560",
+      "MLB6143748308",
+      "MLB6143760498",
+      "MLB6149188852"
+    ],
+    "rental": null
+  },
+  "ESTONIA": {
+    "type": "services",
+    "description": "Empresa Estonia (SHPS)",
+    "status": "approved",
+    "last_report": "2026-03-19",
+    "report_period": "2025-04-01 / 2026-03-19",
+    "next_close": "2026-06-30",
+    "sku_prefixes": [],
+    "mlb_fallback": [],
+    "rental": {
+      "rate_usd": 700,
+      "period": "quarter",
+      "start_date": "2025-04-01",
+      "due_dates": [
+        "2025-04-01",
+        "2025-07-01",
+        "2025-10-01",
+        "2026-01-01",
+        "2026-04-01",
+        "2026-07-01",
+        "2026-10-01",
+        "2027-01-01"
+      ],
+      "payments": [
+        {
+          "date": "2025-04-09",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q1 Abr-Jun/25"
+        },
+        {
+          "date": "2025-07-17",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q1 Abr-Jun/25"
+        },
+        {
+          "date": "2025-08-19",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q2 Jul-Set/25"
+        },
+        {
+          "date": "2025-10-29",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q2 Jul-Set/25"
+        },
+        {
+          "date": "2025-11-10",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q3 Out-Dez/25"
+        },
+        {
+          "date": "2026-01-14",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q3 Out-Dez/25"
+        },
+        {
+          "date": "2026-02-09",
+          "usd": 350,
+          "status": "paid",
+          "quarter": "Q4 Jan-Mar/26"
+        },
+        {
+          "date": "2026-03-01",
+          "usd": 350,
+          "status": "pending",
+          "quarter": "Q4 Jan-Mar/26 (2/2)"
+        },
+        {
+          "date": "2026-04-01",
+          "usd": 350,
+          "status": "pending",
+          "quarter": "Q5 Abr-Jun/26 (1/2)"
+        },
+        {
+          "date": "2026-05-01",
+          "usd": 350,
+          "status": "pending",
+          "quarter": "Q5 Abr-Jun/26 (2/2)"
+        }
+      ],
+      "total_paid_usd": 2450,
+      "total_pending_usd": 1050,
+      "note": "$700/trimestre em 2x $350 (1o e 2o mes do trimestre)"
+    },
+    "wallet_balance_brl": 1862.63,
+    "wallet_balance_date": "2026-04-10"
+  },
+  "GANZA": {
+    "type": "hybrid",
+    "description": "GANZA COMERCIAL LTDA (товары + услуги, наша компания)",
+    "status": "pending",
+    "last_report": null,
+    "report_period": null,
+    "next_close": null,
+    "sku_prefixes": [
+      "23666",
+      "51548",
+      "51485",
+      "85285",
+      "AF 1400",
+      "CP210525",
+      "VJ001V",
+      "CFA210525",
+      "PF250525"
+    ],
+    "mlb_fallback": [],
+    "rental": null
+  }
+}
