@@ -2078,6 +2078,7 @@ elif page == t("page_reports", L):
             bal = compute_balance(sel_project, period_to)
         except Exception as e:
             st.error(f"{t('report_calc_error', L)}: {e}")
+            st.caption(f"DEBUG: DATA_DIR={DATA_DIR}, exists={DATA_DIR.exists()}, contents={list(DATA_DIR.iterdir()) if DATA_DIR.exists() else 'N/A'}")
             st.stop()
 
         tab_pnl, tab_cf, tab_bs = st.tabs([
