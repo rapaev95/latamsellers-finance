@@ -8,8 +8,15 @@ from pathlib import Path
 
 # === PATHS ===
 BASE_DIR = Path(__file__).parent
-DATA_DIR = BASE_DIR / "_data"
-PROJETOS_DIR = BASE_DIR / "projetos"
+# _data: prefer parent (local dev), fallback to inside _admin (Railway)
+_data_parent = BASE_DIR.parent / "_data"
+_data_local = BASE_DIR / "_data"
+DATA_DIR = _data_parent if _data_parent.exists() else _data_local
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+_proj_parent = BASE_DIR.parent / "projetos"
+_proj_local = BASE_DIR / "projetos"
+PROJETOS_DIR = _proj_parent if _proj_parent.exists() else _proj_local
+PROJETOS_DIR.mkdir(parents=True, exist_ok=True)
 PROJECTS_DB_PATH = Path(__file__).parent / "projects_db.json"
 BANK_TRANSACTION_RULES_PATH = Path(__file__).parent / "bank_transaction_rules.json"
 
