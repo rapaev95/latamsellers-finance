@@ -799,6 +799,7 @@ page_options = [
     t("page_bank_rules", L),
     t("page_sku", L),
     t("page_projects", L),
+    t("page_land", L),
 ]
 page = st.sidebar.radio(
     t("menu", L), page_options, label_visibility="collapsed",
@@ -2950,8 +2951,11 @@ elif page == t("page_sku", L):
                 )
                 render_sku_warn_callout(_wmsg, fallback_h=min(420, 100 + len(_wmsg) // 4))
 
-    # ── Build tab list: Обзор + per-project + Все SKU ──
-    _all_proj_ids = sorted(PROJECTS.keys())
+    # ── Build tab list: Обзор + per-project (only those with SKU prefixes) + Все SKU ──
+    _all_proj_ids = sorted(
+        pid for pid, p in PROJECTS.items()
+        if p.get("sku_prefixes")  # only projects that have SKU prefixes
+    )
     _tab_names = ["📋 Обзор"] + [f"📦 {pid}" for pid in _all_proj_ids] + ["🗂 Все SKU"]
     _sku_tabs = st.tabs(_tab_names)
 
@@ -3008,7 +3012,12 @@ elif page == t("page_sku", L):
             _pd = PROJECTS.get(_proj_id, {})
             _ptype = (_pd.get("type") or "—").upper()
             _pdesc = _pd.get("description") or ""
+            _ppfx = _pd.get("sku_prefixes") or []
             st.caption(f"**{_proj_id}** · {_ptype} · {_pdesc}")
+            if _ppfx:
+                st.markdown(
+                    f"SKU-префиксы: `{'`, `'.join(_ppfx)}`",
+                )
             _render_sku_catalog_for_project(_proj_id, f"proj_{_proj_id}")
 
     # ════════════════════════════════════════════
@@ -4368,3 +4377,21 @@ elif page == t("page_projects", L):
                         update_project(clean_name, extra_dates, None)
                     st.success(f"{t('project_added', L)} **{clean_name}**")
                     st.rerun()
+
+# ─────────────────────────────────────────────
+# PAGE: LANDING
+# ─────────────────────────────────────────────
+
+elif page == t("page_land", L):
+    # Remove Streamlit container padding for full-width landing
+    st.markdown("""<style>
+        .block-container{padding:0!important;max-width:100%!important}
+        iframe{width:100%!important;border:none!important}
+        [data-testid="stMainBlockContainer"]{padding:0!important;max-width:100%!important}
+    </style>""", unsafe_allow_html=True)
+    _land_path = BASE_DIR / "latamsellers_landing.html"
+    if _land_path.exists():
+        _land_html = _land_path.read_text(encoding="utf-8")
+        st.components.v1.html(_land_html, height=5000, scrolling=True)
+    else:
+        st.error(f"Landing page not found: {_land_path}")

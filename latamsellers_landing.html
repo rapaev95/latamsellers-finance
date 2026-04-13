@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LatAm Sellers Finance</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: #0b0e1a;
+    color: #f0f2ff;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,213,0,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(56,189,248,0.05) 0%, transparent 70%),
+      #0b0e1a;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,213,0,0.10);
+    border: 1px solid rgba(255,213,0,0.25);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFD500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #FFD500, #FFE94D, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: #a8b2d1;
+    max-width: 640px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #FFD500, #f59e0b);
+    color: #0b0e1a;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,213,0,0.3); }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid #1f2540;
+    color: #f0f2ff;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.10); transform: translateY(-2px); }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .features h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #f0f2ff;
+  }
+
+  .features .subtitle {
+    text-align: center;
+    color: #6272a4;
+    font-size: 15px;
+    margin-bottom: 48px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: #111526;
+    border: 1px solid #1f2540;
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.25s;
+  }
+  .card:hover {
+    border-color: rgba(255,213,0,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #f0f2ff;
+  }
+
+  .card p {
+    font-size: 13px;
+    color: #a8b2d1;
+    line-height: 1.6;
+  }
+
+  .ic-yellow { background: rgba(255,213,0,0.12); }
+  .ic-blue { background: rgba(56,189,248,0.12); }
+  .ic-green { background: rgba(34,211,165,0.12); }
+  .ic-purple { background: rgba(167,139,250,0.12); }
+  .ic-amber { background: rgba(245,158,11,0.12); }
+  .ic-red { background: rgba(255,87,87,0.12); }
+
+  /* ── PROJECTS ── */
+  .projects {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .projects h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 48px;
+  }
+
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .proj-card {
+    background: #111526;
+    border: 1px solid #1f2540;
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .proj-card:hover { transform: translateY(-3px); }
+
+  .proj-name {
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+
+  .proj-type {
+    font-size: 11px;
+    color: #6272a4;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    padding: 60px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 42px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFD500, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #6272a4;
+    margin-top: 4px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid #1f2540;
+    color: #6272a4;
+    font-size: 13px;
+  }
+
+  .footer span { color: #FFD500; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">NexusBI Platform</div>
+  <h1>LatAm Sellers<br>Finance</h1>
+  <p>Controle financeiro completo para operacoes de e-commerce na America Latina. Dashboards, relatorios, classificacao automatica e gestao multi-projeto em um so lugar.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#features">Conhecer funcionalidades</a>
+    <a class="btn btn-secondary" href="#projects">Ver projetos</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <h2>Funcionalidades</h2>
+  <p class="subtitle">Tudo que voce precisa para gerenciar financas de e-commerce LatAm</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-icon ic-yellow">&#x1f4ca;</div>
+      <h3>Dashboard Financeiro</h3>
+      <p>Visao geral de receita, despesas e lucro por projeto. KPIs com sparklines e graficos interativos Plotly.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon ic-blue">&#x1f4c4;</div>
+      <h3>Relatorios Automaticos</h3>
+      <p>Upload de CSV/XLSX do Mercado Livre, Mercado Pago e extratos bancarios. Parsing e consolidacao automatica.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon ic-green">&#x1f3f7;</div>
+      <h3>SKU Mapping</h3>
+      <p>Mapeamento de SKU para projetos com classificacao automatica por prefixo. Catalogo com custo unitario e tipo de fornecedor.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon ic-purple">&#x1f3e6;</div>
+      <h3>Classificacao Bancaria</h3>
+      <p>Regras de auto-classificacao de transacoes bancarias por palavras-chave. Categorias, projetos e labels personalizaveis.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon ic-amber">&#x1f4b1;</div>
+      <h3>Multi-Projeto</h3>
+      <p>Gestao de multiplos projetos (GANZA, ARTUR, ESTONIA, JOOM). Cada um com seu P&L, estoque e compensacao.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon ic-red">&#x1f512;</div>
+      <h3>File Unlocker</h3>
+      <p>Desbloqueio automatico de arquivos Excel e PDF protegidos por senha de bancos brasileiros.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">15K+</div>
+      <div class="stat-label">Linhas de codigo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Projetos ativos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">44</div>
+      <div class="stat-label">Regras de classificacao</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Idiomas (PT/RU/EN)</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <h2>Projetos</h2>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-name" style="color:#FFD500">GANZA</div>
+      <div class="proj-type">E-commerce &middot; Profit Share</div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-name" style="color:#38bdf8">ARTUR</div>
+      <div class="proj-type">E-commerce &middot; Profit Share</div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-name" style="color:#34d399">ORGANIZADORES</div>
+      <div class="proj-type">E-commerce</div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-name" style="color:#a78bfa">JOOM</div>
+      <div class="proj-type">E-commerce</div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-name" style="color:#f59e0b">ESTONIA</div>
+      <div class="proj-type">Services</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>LATAMSELLERS</span> &middot; NexusBI Finance Platform &middot; 2026
+</footer>
+
+</body>
+</html>
