@@ -1644,6 +1644,9 @@ def load_orphan_assignments() -> dict:
     import json as _json
     path = DATA_DIR / "orphan_assignments.json"
     if not path.exists():
+        # Fallback: look inside BASE_DIR (for Railway where _data is separate)
+        path = Path(__file__).resolve().parent / "orphan_assignments.json"
+    if not path.exists():
         return {}
     try:
         with open(path, "r", encoding="utf-8") as f:
