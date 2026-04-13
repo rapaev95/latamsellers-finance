@@ -870,7 +870,7 @@ def _handle_sku_classification(L, ufile, file_bytes, ext):
         if ext == ".csv":
             df_sku_check = pd.read_csv(io.BytesIO(file_bytes), sep=";", skiprows=5, encoding="utf-8")
         else:
-            df_sku_check = pd.read_excel(io.BytesIO(file_bytes))
+            df_sku_check = pd.read_excel(io.BytesIO(file_bytes), header=5)
 
         unclassified_skus = []
         for _, row in df_sku_check.iterrows():

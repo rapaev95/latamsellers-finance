@@ -1469,8 +1469,12 @@ def load_vendas_ml_report() -> "pd.DataFrame | None":
     else:
         df["__sku_resolved"] = df.get(sku_col, "")
 
-    df["__project"] = df["__sku_resolved"].apply(
-        lambda s: get_project_by_sku(str(s or "").strip(), "")
+    _mlb_col = "# de anúncio" if "# de anúncio" in df.columns else "# de anuncio" if "# de anuncio" in df.columns else None
+    df["__project"] = df.apply(
+        lambda r: get_project_by_sku(
+            str(r.get("__sku_resolved") or "").strip(),
+            str(r.get(_mlb_col) or "").strip() if _mlb_col else "",
+        ), axis=1,
     )
 
     # Multi-item «Pacote de N produtos» с пустым SKU — orphan rows из ML.
