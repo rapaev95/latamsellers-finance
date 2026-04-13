@@ -746,18 +746,18 @@ def _classify_bank_transactions(L, ufile, file_bytes, ext, detected_source, uplo
             all_classified = len(still_uncl) == 0
         else:
             all_classified = True
-            _render_info_badge("✅ Все транзакции классифицированы", "green")
+            _render_info_badge(t("up_all_classified", L), "green")
 
         # All transactions in expander
-        with st.expander(f"📋 Все транзакции ({len(df_class)})", expanded=False):
+        with st.expander(f"{t('up_all_tx', L)} ({len(df_class)})", expanded=False):
             st.dataframe(df_class, use_container_width=True, hide_index=True)
 
         # Metrics
         categorized_count = len(df_class[(df_class["Категория"] != "uncategorized") & (df_class["Проект"] != "❓") & (df_class["Проект"] != "")])
         col_s1, col_s2, col_s3 = st.columns(3)
-        col_s1.metric("Всего", len(df_class))
-        col_s2.metric("✅ Класс.", categorized_count)
-        col_s3.metric("❓ Некласс.", len(df_class) - categorized_count)
+        col_s1.metric(t("up_total", L), len(df_class))
+        col_s2.metric(t("up_classified", L), categorized_count)
+        col_s3.metric(t("up_unclassified", L), len(df_class) - categorized_count)
 
         # ── Splittable transactions: GROUP by category ──
         ecom_projects = [pid for pid, p in load_projects().items() if p.get("type") in ("ecom", "hybrid")]
@@ -781,7 +781,7 @@ def _classify_bank_transactions(L, ufile, file_bytes, ext, detected_source, uplo
 
         tx_splits = {}
         if len(groups_df) > 0:
-            st.markdown("#### 🔀 Разделение между проектами (по группам)")
+            st.markdown(t("up_split_title", L))
 
             group_labels = {
                 "fulfillment": "📦 Full Express / Fulfillment",
@@ -797,7 +797,7 @@ def _classify_bank_transactions(L, ufile, file_bytes, ext, detected_source, uplo
                 title = group_labels[group_key]
                 total_abs = float(grp["Valor"].abs().sum())
 
-                with st.expander(f"{title} — **R$ {total_abs:,.2f}** ({len(grp)} оп.)", expanded=True):
+                with st.expander(f"{title} — **R$ {total_abs:,.2f}** ({len(grp)} {t('up_ops_suffix', L)})", expanded=True):
                     cols = st.columns(len(ecom_projects))
                     split_values = {}
                     for i, proj in enumerate(ecom_projects):
@@ -816,7 +816,7 @@ def _classify_bank_transactions(L, ufile, file_bytes, ext, detected_source, uplo
                     else:
                         _render_info_badge(f"⚠️ {total_split:,.2f} / {total_abs:,.2f}", "red")
 
-                    with st.expander(f"Показать {len(grp)} операций"):
+                    with st.expander(t("up_show_ops", L).format(n=len(grp))):
                         st.dataframe(
                             grp[["Data", "Valor", "Descrição"]], use_container_width=True,
                             hide_index=True,
@@ -828,7 +828,7 @@ def _classify_bank_transactions(L, ufile, file_bytes, ext, detected_source, uplo
                     }
 
         # Project summary
-        with st.expander("📊 Сводка по проектам"):
+        with st.expander(t("up_summary", L)):
             proj_summary = df_class.groupby("Проект").agg(
                 qtd=("Valor", "count"), total=("Valor", "sum"),
             ).reset_index()
@@ -839,7 +839,7 @@ def _classify_bank_transactions(L, ufile, file_bytes, ext, detected_source, uplo
                         if amt > 0:
                             split_totals[proj] = split_totals.get(proj, 0) - amt
                 if split_totals:
-                    st.markdown("**Из splits (Full Express + Fatura ML + Devoluções):**")
+                    st.markdown(t("up_from_splits", L))
                     st.dataframe(
                         pd.DataFrame([{"Проект": p, "Total": v} for p, v in split_totals.items()]),
                         use_container_width=True, hide_index=True,
@@ -883,7 +883,7 @@ def _handle_sku_classification(L, ufile, file_bytes, ext):
 
         if unclassified_skus:
             df_unc = pd.DataFrame(unclassified_skus).drop_duplicates(subset=["SKU", "MLB"])
-            _render_warn_header(f"⚠️ {len(df_unc)} SKU без проекта")
+            _render_warn_header(t("up_sku_no_proj", L).format(n=len(df_unc)))
 
             ecom_proj_list = ["—"] + [pid for pid, p in PROJECTS.items() if p.get("type") == "ecom"]
             assignments_made = []
@@ -892,7 +892,7 @@ def _handle_sku_classification(L, ufile, file_bytes, ext):
                 c1.code(f"{urow['SKU']}  {urow['MLB']}")
                 c2.caption(urow["Titulo"])
                 chosen = c3.selectbox(
-                    "Проект", ecom_proj_list,
+                    t("up_project", L), ecom_proj_list,
                     key=f"assign_{urow['SKU']}_{urow['MLB']}_{ufile.name}",
                     label_visibility="collapsed",
                 )
@@ -901,7 +901,7 @@ def _handle_sku_classification(L, ufile, file_bytes, ext):
 
             if assignments_made:
                 st.markdown('<div class="up-save-btn">', unsafe_allow_html=True)
-                if st.button(f"💾 Сохранить {len(assignments_made)} назначений", key=f"save_assign_{ufile.name}"):
+                if st.button(t("up_save_n", L).format(n=len(assignments_made)), key=f"save_assign_{ufile.name}"):
                     updated_projects = load_projects()
                     for a in assignments_made:
                         pid = a["project"]
@@ -915,13 +915,13 @@ def _handle_sku_classification(L, ufile, file_bytes, ext):
                             if not already_covered:
                                 p.setdefault("sku_prefixes", []).append(a["sku"])
                     save_projects(updated_projects)
-                    _render_info_badge(f"✅ Сохранено {len(assignments_made)} назначений!", "green")
+                    _render_info_badge(f"✅ {t('up_save_n', L).format(n=len(assignments_made))}", "green")
                     st.rerun()
                 st.markdown('</div>', unsafe_allow_html=True)
         else:
-            _render_info_badge("✅ Все SKU классифицированы", "green")
+            _render_info_badge(t("up_all_classified", L), "green")
     except Exception as e:
-        st.warning(f"⚠️ Не удалось проверить SKU: {e}")
+        st.warning(t("up_sku_check_err", L).format(e=e))
 
 
 # ─────────────────────────────────────────────
@@ -1427,3 +1427,53 @@ def render_upload_page(L):
             if success:
                 st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
+
+    # ── Clear data section ──
+    st.markdown("---")
+    with st.expander("🗑️ Limpar dados / Очистить данные"):
+        st.caption("Isso apagará os arquivos carregados. Esta ação não pode ser desfeita.")
+        months_with_data = []
+        if DATA_DIR.exists():
+            for d in sorted(DATA_DIR.iterdir()):
+                if d.is_dir() and any(d.iterdir()):
+                    file_count = sum(1 for f in d.iterdir() if f.is_file())
+                    total_size = sum(f.stat().st_size for f in d.iterdir() if f.is_file())
+                    months_with_data.append((d.name, file_count, total_size))
+        if months_with_data:
+            for mname, fcount, fsize in months_with_data:
+                size_str = f"{fsize / 1024:.0f} KB" if fsize < 1024 * 1024 else f"{fsize / 1024 / 1024:.1f} MB"
+                st.text(f"📁 {mname}: {fcount} arquivo(s), {size_str}")
+            col_del_month, col_del_all = st.columns(2)
+            with col_del_month:
+                del_month = st.selectbox(
+                    "Mês", [m[0] for m in months_with_data],
+                    key="del_month_select", label_visibility="collapsed",
+                )
+                if st.button("🗑️ Apagar mês", key="del_month_btn"):
+                    import shutil
+                    target = DATA_DIR / del_month
+                    if target.exists():
+                        shutil.rmtree(target)
+                        st.success(f"✅ {del_month} apagado")
+                        st.rerun()
+            with col_del_all:
+                if st.button("⚠️ Apagar TUDO", key="del_all_btn", type="secondary"):
+                    st.session_state["confirm_delete_all"] = True
+                if st.session_state.get("confirm_delete_all"):
+                    st.warning("Tem certeza? Todos os dados serão apagados!")
+                    c_yes, c_no = st.columns(2)
+                    with c_yes:
+                        if st.button("✅ Sim, apagar tudo", key="del_all_confirm"):
+                            import shutil
+                            for d in DATA_DIR.iterdir():
+                                if d.is_dir():
+                                    shutil.rmtree(d)
+                            st.session_state.pop("confirm_delete_all", None)
+                            st.success("✅ Todos os dados apagados")
+                            st.rerun()
+                    with c_no:
+                        if st.button("❌ Cancelar", key="del_all_cancel"):
+                            st.session_state.pop("confirm_delete_all", None)
+                            st.rerun()
+        else:
+            st.info("Nenhum dado carregado.")
