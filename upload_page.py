@@ -1341,7 +1341,7 @@ def render_upload_page(L):
         return
 
     # ── Process each uploaded file ──
-    for ufile in uploaded:
+    for _uidx, ufile in enumerate(uploaded):
         st.markdown("---")
 
         ufile.seek(0)
@@ -1470,7 +1470,7 @@ def render_upload_page(L):
         st.markdown('<div class="up-save-btn">', unsafe_allow_html=True)
         if st.button(
             f"{t('save_arrow', L)}  {detected_source} → {upload_month}",
-            key=f"save_{ufile.name}",
+            key=f"save_{_uidx}_{ufile.name}",
         ):
             success = _save_file(
                 ufile, file_bytes, ext, detected_source, upload_month,
