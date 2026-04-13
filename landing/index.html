@@ -3,375 +3,698 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LatAm Sellers Finance</title>
+<title>LatAm Sellers Finance — NexusBI</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0e1a;--bg2:#111526;--bg3:#181d30;--border:#1f2540;
+  --yellow:#FFD500;--ydim:rgba(255,213,0,0.08);--yborder:rgba(255,213,0,0.25);
+  --text:#f0f2ff;--text2:#8892b0;--text3:#3d4570;
+  --green:#22d3a5;--gdim:rgba(34,211,165,0.08);
+  --red:#ff5757;--blue:#38bdf8;--amber:#f59e0b;--purple:#a78bfa;
+}
+body{background:var(--bg);font-family:'Nunito Sans',sans-serif;color:var(--text)}
+.page{max-width:900px;margin:0 auto;padding:0 16px}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* LANG TOGGLE */
+.lang-bar{display:flex;justify-content:flex-end;padding:12px 0 0}
+.lang-btn{background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:11px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.lang-btn:hover{border-color:var(--yellow);color:var(--yellow)}
+.lang-btn.active{border-color:var(--yellow);color:var(--yellow);background:var(--ydim)}
 
-  body {
-    font-family: 'Nunito Sans', sans-serif;
-    background: #0b0e1a;
-    color: #f0f2ff;
-    overflow-x: hidden;
-  }
+/* HERO */
+.hero{padding:50px 0 40px;text-align:center;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--ydim);border:1px solid var(--yborder);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:20px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:38px;font-weight:900;line-height:1.15;margin-bottom:16px;letter-spacing:-.5px}
+.hero h1 span{color:var(--yellow)}
+.hero-sub{font-size:15px;color:var(--text2);max-width:560px;margin:0 auto 28px;line-height:1.7}
+.hero-sub strong{color:var(--text);font-weight:700}
+.hero-ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.btn-hero{border-radius:9px;font-size:13px;font-weight:800;padding:13px 28px;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:.2s;border:1.5px solid;display:inline-flex;align-items:center;gap:7px}
+.btn-hero-primary{background:var(--yellow);border-color:var(--yellow);color:#0b0e1a}
+.btn-hero-primary:hover{background:#FFE94D;transform:translateY(-1px)}
+.btn-hero-ghost{background:transparent;border-color:var(--border);color:var(--text2)}
+.btn-hero-ghost:hover{border-color:var(--yellow);color:var(--yellow)}
+.hero-proof{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.proof-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.proof-ico{font-size:13px}
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 24px;
-    position: relative;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,213,0,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(56,189,248,0.05) 0%, transparent 70%),
-      #0b0e1a;
-  }
+/* DIVIDER */
+.section-divider{border:none;border-top:1px solid var(--border);margin:8px 0 32px}
 
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,213,0,0.10);
-    border: 1px solid rgba(255,213,0,0.25);
-    border-radius: 100px;
-    padding: 6px 18px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #FFD500;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 32px;
-  }
+/* SECTIONS */
+.section{padding:40px 0}
+.section-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--yellow);margin-bottom:10px;text-align:center}
+.section-title{font-size:26px;font-weight:900;text-align:center;margin-bottom:8px;line-height:1.2}
+.section-sub{font-size:13px;color:var(--text2);text-align:center;max-width:500px;margin:0 auto 32px;line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px 18px;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--yellow)}
+.step-num{font-size:32px;font-weight:900;font-family:'DM Mono',monospace;color:var(--text2);opacity:.35;margin-bottom:10px;line-height:1}
+.step-title{font-size:14px;font-weight:800;margin-bottom:6px}
+.step-desc{font-size:11px;color:var(--text2);line-height:1.6}
+.step-formats{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.fmt{background:var(--bg3);border:1px solid var(--border);border-radius:3px;font-size:8px;font-family:'DM Mono',monospace;padding:2px 5px;color:var(--text2)}
 
-  .hero h1 {
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #FFD500, #FFE94D, #f59e0b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+/* ACCURACY */
+.acc-block{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.acc-side{padding:16px;border-radius:10px}
+.acc-bad{background:rgba(255,87,87,0.06);border:1px solid rgba(255,87,87,0.15)}
+.acc-good{background:rgba(34,211,165,0.06);border:1px solid rgba(34,211,165,0.18)}
+.acc-title{font-size:12px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.acc-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:8px;font-size:11px;line-height:1.5}
+.acc-ico{flex-shrink:0;margin-top:1px}
 
-  .hero p {
-    font-size: clamp(16px, 2.5vw, 20px);
-    color: #a8b2d1;
-    max-width: 640px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-  }
+/* DEMO */
+.demo-wrap{background:var(--bg2);border:1px solid var(--yborder);border-radius:14px;overflow:hidden;margin-bottom:40px}
+.demo-top{padding:20px 22px;border-bottom:1px solid var(--border)}
+.demo-title{font-size:14px;font-weight:800;margin-bottom:4px}
+.demo-sub{font-size:11px;color:var(--text2)}
+.dropzone{border:1.5px dashed var(--border);border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:.2s;position:relative;margin:16px 0 0}
+.dropzone:hover,.dropzone.drag{border-color:var(--yellow);background:var(--ydim)}
+.dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dz-ico{font-size:22px;margin-bottom:6px;opacity:.5}
+.dz-txt{font-size:12px;font-weight:700;color:var(--text2)}
+.dz-hint{font-size:10px;color:var(--text2);margin-top:3px}
+.demo-results{display:none;padding:20px 22px}
+.demo-results.show{display:block}
+.result-open{margin-bottom:16px}
+.result-open-title{font-size:11px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.result-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.rc{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.rc-lbl{font-size:8px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:4px}
+.rc-val{font-size:17px;font-weight:800;font-family:'DM Mono',monospace}
+.result-cats{display:flex;flex-direction:column;gap:5px}
+.cat-row{display:flex;align-items:center;gap:8px;font-size:11px}
+.cat-bar{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.cat-fill{height:100%;border-radius:3px;background:var(--green)}
+.cat-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);min-width:70px;text-align:right}
+.result-locked{position:relative;border-radius:10px;overflow:hidden}
+.locked-blur{filter:blur(5px);pointer-events:none;user-select:none;padding:16px;background:var(--bg3);border-radius:10px}
+.locked-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(11,14,26,0.75);border-radius:10px;gap:10px}
+.lock-icon{font-size:28px}
+.lock-msg{font-size:13px;font-weight:800;color:var(--text);text-align:center}
+.lock-sub{font-size:10px;color:var(--text2);text-align:center;max-width:220px}
+.btn-unlock{background:var(--yellow);border:none;border-radius:8px;color:#0b0e1a;font-size:12px;font-weight:800;padding:10px 22px;cursor:pointer;font-family:'Nunito Sans',sans-serif}
 
-  .cta-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+/* REPORT TABS */
+.rpt-tab{background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-size:11px;font-weight:700;padding:8px 14px;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:.15s;white-space:nowrap}
+.rpt-tab:hover{border-color:var(--yellow);color:var(--yellow)}
+.rpt-tab.active{background:var(--ydim);border-color:var(--yellow);color:var(--yellow)}
+.rpt-panel{display:none}
+.rpt-panel.active{display:block}
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 32px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 800;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-  }
+/* RPT SHARED */
+.rp-kpi-row{display:grid;gap:8px;margin-bottom:12px}
+.rp-kpi{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;position:relative;overflow:hidden}
+.rp-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.rp-kpi-g::before{background:var(--green)}.rp-kpi-r::before{background:var(--red)}.rp-kpi-y::before{background:var(--yellow)}.rp-kpi-b::before{background:var(--blue)}.rp-kpi-p::before{background:var(--purple)}.rp-kpi-a::before{background:var(--amber)}
+.rp-lbl{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:3px}
+.rp-val{font-size:18px;font-weight:800;font-family:'DM Mono',monospace}
+.rp-sub{font-size:9px;color:var(--text3);margin-top:2px}
+.rp-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.rp-tbl thead th{background:var(--bg3);color:var(--text3);font-size:8px;text-transform:uppercase;letter-spacing:.6px;padding:7px 8px;text-align:left;border-bottom:2px solid var(--yellow);font-weight:700}
+.rp-tbl tbody tr{border-bottom:1px solid rgba(31,37,64,0.4)}
+.rp-tbl tbody tr:last-child{border-bottom:none}
+.rp-tbl tbody tr:hover{background:var(--ydim)}
+.rp-tbl td{padding:6px 8px;font-family:'DM Mono',monospace;font-size:10px}
+.rp-tbl .r-head td{background:var(--bg3);font-weight:700;color:var(--text)}
+.rp-tbl .r-sub td{padding-left:24px;color:var(--text2);font-weight:400}
+.rp-tbl .r-total td{background:var(--ydim);font-weight:800;color:var(--yellow);border-top:1px solid var(--yellow)}
+.c-pos{color:var(--green)}.c-neg{color:var(--red)}.c-y{color:var(--yellow)}.c-b{color:var(--blue)}.c-a{color:var(--amber)}.c-p{color:var(--purple)}
+/* CP table */
+.cp-row{display:grid;grid-template-columns:1fr 50px 100px 100px;padding:7px 8px;border-bottom:1px solid rgba(31,37,64,0.4);font-size:10px;font-family:'DM Mono',monospace;align-items:center;cursor:pointer;transition:.1s}
+.cp-row:hover{background:rgba(255,213,0,0.04)}
+.cp-row.z-in{background:rgba(34,211,165,0.03)}.cp-row.z-out{background:rgba(255,87,87,0.03)}.cp-row.z-tot{background:var(--ydim);border-top:1px solid var(--yellow)}
+.cp-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px;flex-shrink:0}
+.cp-name{font-family:'Nunito Sans',sans-serif;font-weight:600;font-size:10px}
+.cp-det{display:none;padding:0 8px 6px 28px;font-size:9px}
+.cp-det.open{display:block}
+.cp-det-r{display:grid;grid-template-columns:1fr 60px 90px;padding:3px 0;color:var(--text2);border-bottom:1px solid rgba(31,37,64,0.2)}
+/* wallet */
+.w-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.w-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.w-val{font-size:16px;font-weight:800;font-family:'DM Mono',monospace}
+.w-sub{font-size:9px;color:var(--text3);margin-top:2px}
+/* bank */
+.bk-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.bk-ico{font-size:13px}
+.bk-name{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.bk-val{font-size:13px;font-weight:800;font-family:'DM Mono',monospace;margin-left:auto}
+.bk-sub{font-size:8px;color:var(--text3)}
+/* cap */
+.cap-card2{border:1px solid var(--yborder);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.cap-hdr2{background:var(--ydim);border-bottom:1px solid var(--yborder);padding:10px 14px;display:flex;align-items:center;gap:8px}
+.cap-body2{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cap-col2{padding:12px 14px}
+.cap-col2+.cap-col2{border-left:1px solid var(--border)}
+.cap-col-t{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:700;margin-bottom:8px}
+.cap-r{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid rgba(31,37,64,0.3);font-size:11px}
+.cap-r:last-child{border-bottom:none}
+.cap-r-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cap-r-lbl{flex:1;color:var(--text2)}.cap-r-lbl small{display:block;font-size:9px;color:var(--text3)}
+.cap-r-val{font-family:'DM Mono',monospace;font-weight:700;font-size:11px}
+.cap-r.tot{margin-top:6px;padding-top:8px;border-top:1px solid var(--border)}
+.cap-bar-w{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:1px;margin:10px 14px 6px}
+.cap-bar-s{height:100%}
+.cap-bar-l{display:flex;gap:12px;flex-wrap:wrap;padding:0 14px 10px;font-size:9px;color:var(--text2)}
+.cap-bar-l span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+/* exp table */
+.exp-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.exp-tbl td{padding:5px 0;border-bottom:1px solid rgba(31,37,64,0.3)}
+.exp-tbl tr:last-child td{border-bottom:none;font-weight:700;color:var(--yellow)}
 
-  .btn-primary {
-    background: linear-gradient(135deg, #FFD500, #f59e0b);
-    color: #0b0e1a;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,213,0,0.3); }
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.feat-card{background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:16px;display:flex;gap:12px}
+.feat-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.feat-title{font-size:12px;font-weight:800;margin-bottom:4px}
+.feat-desc{font-size:10px;color:var(--text2);line-height:1.6}
 
-  .btn-secondary {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid #1f2540;
-    color: #f0f2ff;
-  }
-  .btn-secondary:hover { background: rgba(255,255,255,0.10); transform: translateY(-2px); }
+/* PERSONAS */
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.persona-card{background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:16px}
+.persona-emoji{font-size:28px;margin-bottom:8px}
+.persona-title{font-size:12px;font-weight:800;margin-bottom:6px}
+.persona-pain{font-size:10px;color:var(--red);margin-bottom:6px;line-height:1.5}
+.persona-solve{font-size:10px;color:var(--green);line-height:1.5}
 
-  /* ── FEATURES ── */
-  .features {
-    padding: 80px 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+/* NUMBERS */
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.num-card{background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:18px 14px;text-align:center}
+.num-val{font-size:28px;font-weight:900;font-family:'DM Mono',monospace;color:var(--yellow);line-height:1;margin-bottom:5px}
+.num-lbl{font-size:10px;color:var(--text2);line-height:1.5}
 
-  .features h2 {
-    text-align: center;
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    color: #f0f2ff;
-  }
+/* PRICING */
+.price-card{background:var(--bg2);border:2px solid var(--yellow);border-radius:16px;padding:32px;max-width:480px;margin:0 auto;text-align:center;position:relative}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--yellow);color:#0b0e1a;font-size:10px;font-weight:800;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.price-name{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.price-val{font-size:48px;font-weight:900;font-family:'DM Mono',monospace;color:var(--yellow);line-height:1;margin-bottom:4px}
+.price-per{font-size:12px;color:var(--text2);margin-bottom:6px}
+.price-monthly{font-size:13px;color:var(--text2);margin-bottom:20px}
+.price-features{text-align:left;margin-bottom:24px}
+.pf-row{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.pf-row:last-child{border-bottom:none}
+.pf-ico{color:var(--green);font-size:12px;flex-shrink:0;margin-top:2px}
+.btn-buy{width:100%;background:var(--yellow);border:none;border-radius:9px;color:#0b0e1a;font-size:14px;font-weight:900;padding:14px;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:.15s}
+.btn-buy:hover{background:#FFE94D}
+.price-note{font-size:10px;color:var(--text2);margin-top:10px}
 
-  .features .subtitle {
-    text-align: center;
-    color: #6272a4;
-    font-size: 15px;
-    margin-bottom: 48px;
-  }
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:6px}
+.faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;font-size:12px;font-weight:700;transition:.12s;user-select:none}
+.faq-q:hover{background:var(--ydim)}
+.faq-arr{font-size:10px;color:var(--text2);transition:transform .2s}
+.faq-a{display:none;padding:0 16px 13px;font-size:11px;color:var(--text2);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-arr{transform:rotate(180deg)}
+.faq-item.open .faq-q{color:var(--yellow)}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-
-  .card {
-    background: #111526;
-    border: 1px solid #1f2540;
-    border-radius: 16px;
-    padding: 28px;
-    transition: all 0.25s;
-  }
-  .card:hover {
-    border-color: rgba(255,213,0,0.25);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-  }
-
-  .card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-
-  .card h3 {
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: #f0f2ff;
-  }
-
-  .card p {
-    font-size: 13px;
-    color: #a8b2d1;
-    line-height: 1.6;
-  }
-
-  .ic-yellow { background: rgba(255,213,0,0.12); }
-  .ic-blue { background: rgba(56,189,248,0.12); }
-  .ic-green { background: rgba(34,211,165,0.12); }
-  .ic-purple { background: rgba(167,139,250,0.12); }
-  .ic-amber { background: rgba(245,158,11,0.12); }
-  .ic-red { background: rgba(255,87,87,0.12); }
-
-  /* ── PROJECTS ── */
-  .projects {
-    padding: 80px 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .projects h2 {
-    text-align: center;
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 48px;
-  }
-
-  .proj-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-
-  .proj-card {
-    background: #111526;
-    border: 1px solid #1f2540;
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-    transition: all 0.25s;
-  }
-  .proj-card:hover { transform: translateY(-3px); }
-
-  .proj-name {
-    font-size: 18px;
-    font-weight: 900;
-    margin-bottom: 6px;
-  }
-
-  .proj-type {
-    font-size: 11px;
-    color: #6272a4;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* ── STATS ── */
-  .stats {
-    padding: 60px 24px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .stats-row {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-num {
-    font-size: 42px;
-    font-weight: 900;
-    background: linear-gradient(135deg, #FFD500, #38bdf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .stat-label {
-    font-size: 13px;
-    color: #6272a4;
-    margin-top: 4px;
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center;
-    padding: 40px 24px;
-    border-top: 1px solid #1f2540;
-    color: #6272a4;
-    font-size: 13px;
-  }
-
-  .footer span { color: #FFD500; font-weight: 700; }
+/* FOOTER CTA */
+.footer-cta{background:var(--bg2);border:1px solid var(--yborder);border-radius:16px;padding:36px 24px;text-align:center;margin-bottom:40px}
+.footer-cta h2{font-size:24px;font-weight:900;margin-bottom:10px}
+.footer-cta p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6}
 </style>
-</head>
-<body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="badge">NexusBI Platform</div>
-  <h1>LatAm Sellers<br>Finance</h1>
-  <p>Controle financeiro completo para operacoes de e-commerce na America Latina. Dashboards, relatorios, classificacao automatica e gestao multi-projeto em um so lugar.</p>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="https://latamsellers-finance-production.up.railway.app" target="_blank">Entrar no painel</a>
-    <a class="btn btn-secondary" href="#features">Conhecer funcionalidades</a>
+<div style="background:var(--bg);min-height:100%">
+<div class="page">
+
+<!-- LANG TOGGLE -->
+<div class="lang-bar">
+  <button class="lang-btn" id="btnRu" onclick="setLang('ru')">🇷🇺 RU</button>
+  <button class="lang-btn active" id="btnPt" onclick="setLang('pt')" style="margin-left:4px">🇧🇷 PT</button>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-badge"><div class="hero-badge-dot"></div><span data-ru="Финансовый учёт для продавцов Бразилии" data-pt="Gestão financeira para vendedores no Brasil">Gestão financeira para vendedores no Brasil</span></div>
+  <h1 data-ru="Порядок в финансах<br>вашего <span>Mercado Livre</span><br>за 1 минуту" data-pt="Organize as finanças<br>do seu <span>Mercado Livre</span><br>em 1 minuto">Organize as finanças<br>do seu <span>Mercado Livre</span><br>em 1 minuto</h1>
+  <p class="hero-sub" data-ru='Загрузите выписку банка и отчёт о продажах — <strong>Latamsellers Finance</strong> автоматически построит ОПиУ, ДДС и Баланс по каждому проекту. <strong>Точнее API. Быстрее таблиц.</strong>' data-pt='Envie o extrato bancário e o relatório de vendas — <strong>Latamsellers Finance</strong> gera automaticamente DRE, Fluxo de Caixa e Balanço por projeto. <strong>Mais preciso que API. Mais rápido que planilhas.</strong>'>Envie o extrato bancário e o relatório de vendas — <strong>Latamsellers Finance</strong> gera automaticamente DRE, Fluxo de Caixa e Balanço por projeto. <strong>Mais preciso que API. Mais rápido que planilhas.</strong></p>
+  <div class="hero-ctas">
+    <button class="btn-hero btn-hero-primary" onclick="document.getElementById('demoSection').scrollIntoView({behavior:'smooth'})" data-ru="📂 Загрузить файл и получить отчёт" data-pt="📂 Enviar arquivo e gerar relatório">📂 Enviar arquivo e gerar relatório</button>
+    <button class="btn-hero btn-hero-ghost" onclick="document.getElementById('reportsSection').scrollIntoView({behavior:'smooth'})" data-ru="Посмотреть отчёты ↓" data-pt="Ver relatórios ↓">Ver relatórios ↓</button>
+    <a class="btn-hero btn-hero-ghost" href="https://latamsellers-finance-production.up.railway.app" target="_blank" style="text-decoration:none" data-ru="🚀 Войти в панель" data-pt="🚀 Entrar no painel">🚀 Entrar no painel</a>
   </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <h2>Funcionalidades</h2>
-  <p class="subtitle">Tudo que voce precisa para gerenciar financas de e-commerce LatAm</p>
-  <div class="grid">
-
-    <div class="card">
-      <div class="card-icon ic-yellow">&#x1f4ca;</div>
-      <h3>Dashboard Financeiro</h3>
-      <p>Visao geral de receita, despesas e lucro por projeto. KPIs com sparklines e graficos interativos Plotly.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon ic-blue">&#x1f4c4;</div>
-      <h3>Relatorios Automaticos</h3>
-      <p>Upload de CSV/XLSX do Mercado Livre, Mercado Pago e extratos bancarios. Parsing e consolidacao automatica.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon ic-green">&#x1f3f7;</div>
-      <h3>SKU Mapping</h3>
-      <p>Mapeamento de SKU para projetos com classificacao automatica por prefixo. Catalogo com custo unitario e tipo de fornecedor.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon ic-purple">&#x1f3e6;</div>
-      <h3>Classificacao Bancaria</h3>
-      <p>Regras de auto-classificacao de transacoes bancarias por palavras-chave. Categorias, projetos e labels personalizaveis.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon ic-amber">&#x1f4b1;</div>
-      <h3>Multi-Projeto</h3>
-      <p>Gestao de multiplos projetos (GANZA, ARTUR, ESTONIA, JOOM). Cada um com seu P&L, estoque e compensacao.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon ic-red">&#x1f512;</div>
-      <h3>File Unlocker</h3>
-      <p>Desbloqueio automatico de arquivos Excel e PDF protegidos por senha de bancos brasileiros.</p>
-    </div>
-
+  <div class="hero-proof">
+    <div class="proof-item"><span class="proof-ico">🔒</span><span data-ru="Файлы не покидают браузер" data-pt="Arquivos não saem do navegador">Arquivos não saem do navegador</span></div>
+    <div class="proof-item"><span class="proof-ico">⚡</span><span data-ru="Отчёт за 60 секунд" data-pt="Relatório em 60 segundos">Relatório em 60 segundos</span></div>
+    <div class="proof-item"><span class="proof-ico">🇧🇷</span>Nubank · C6 · MP · ML</div>
+    <div class="proof-item"><span class="proof-ico">✅</span><span data-ru="100% точность данных" data-pt="100% precisão dos dados">100% precisão dos dados</span></div>
   </div>
-</section>
+</div>
 
-<!-- STATS -->
-<section class="stats">
-  <div class="stats-row">
-    <div class="stat">
-      <div class="stat-num">15K+</div>
-      <div class="stat-label">Linhas de codigo</div>
+<hr class="section-divider">
+
+<!-- ══ ACCURACY ══ -->
+<div class="section">
+  <div class="section-label" data-ru="Почему не API" data-pt="Por que não API">Por que não API</div>
+  <div class="section-title" data-ru="Данные из файлов точнее API" data-pt="Dados de arquivos são mais precisos que API">Dados de arquivos são mais precisos que API</div>
+  <div class="section-sub" data-ru="API Mercado Livre и банков часто возвращают неполные данные, округления и задержки. Мы работаем с оригинальными файлами." data-pt="APIs do Mercado Livre e bancos frequentemente retornam dados incompletos, arredondamentos e atrasos. Trabalhamos com os arquivos originais.">APIs do Mercado Livre e bancos frequentemente retornam dados incompletos, arredondamentos e atrasos. Trabalhamos com os arquivos originais.</div>
+  <div class="acc-block">
+    <div class="acc-side acc-bad">
+      <div class="acc-title" style="color:var(--red)" data-ru="❌ API / интеграции" data-pt="❌ API / integrações">❌ API / integrações</div>
+      <div class="acc-row"><span class="acc-ico">⚠</span><span style="color:var(--text2)" data-ru="Округления в суммах — разница до R$50 на 1.000 заказов" data-pt="Arredondamentos — diferença de até R$50 em 1.000 pedidos">Arredondamentos — diferença de até R$50 em 1.000 pedidos</span></div>
+      <div class="acc-row"><span class="acc-ico">⚠</span><span style="color:var(--text2)" data-ru="Задержка данных до 48 часов после транзакции" data-pt="Atraso de até 48 horas após a transação">Atraso de até 48 horas após a transação</span></div>
+      <div class="acc-row"><span class="acc-ico">⚠</span><span style="color:var(--text2)" data-ru="Нет информации о возвратах и удержаниях" data-pt="Sem informações sobre devoluções e retenções">Sem informações sobre devoluções e retenções</span></div>
+      <div class="acc-row"><span class="acc-ico">⚠</span><span style="color:var(--text2)" data-ru="Нет разбивки по проектам — только общий оборот" data-pt="Sem separação por projetos — apenas faturamento total">Sem separação por projetos — apenas faturamento total</span></div>
+      <div class="acc-row"><span class="acc-ico">⚠</span><span style="color:var(--text2)" data-ru="Блокировки и изменение API без предупреждения" data-pt="Bloqueios e mudanças na API sem aviso">Bloqueios e mudanças na API sem aviso</span></div>
     </div>
-    <div class="stat">
-      <div class="stat-num">5</div>
-      <div class="stat-label">Projetos ativos</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">44</div>
-      <div class="stat-label">Regras de classificacao</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Idiomas (PT/RU/EN)</div>
+    <div class="acc-side acc-good">
+      <div class="acc-title" style="color:var(--green)" data-ru="✅ Latamsellers Finance (файлы)" data-pt="✅ Latamsellers Finance (arquivos)">✅ Latamsellers Finance (arquivos)</div>
+      <div class="acc-row"><span class="acc-ico">✓</span><span style="color:var(--text2)" data-ru="Точность до сентаво — те же данные что у ML/банка" data-pt="Precisão ao centavo — mesmos dados que o ML/banco">Precisão ao centavo — mesmos dados que o ML/banco</span></div>
+      <div class="acc-row"><span class="acc-ico">✓</span><span style="color:var(--text2)" data-ru="Данные актуальны на момент выгрузки файла" data-pt="Dados atualizados no momento da exportação do arquivo">Dados atualizados no momento da exportação do arquivo</span></div>
+      <div class="acc-row"><span class="acc-ico">✓</span><span style="color:var(--text2)" data-ru="Полная история: возвраты, скидки, корректировки" data-pt="Histórico completo: devoluções, descontos, ajustes">Histórico completo: devoluções, descontos, ajustes</span></div>
+      <div class="acc-row"><span class="acc-ico">✓</span><span style="color:var(--text2)" data-ru="Автоматическая разбивка по проектам ARTUR, JOOM…" data-pt="Separação automática por projetos ARTUR, JOOM…">Separação automática por projetos ARTUR, JOOM…</span></div>
+      <div class="acc-row"><span class="acc-ico">✓</span><span style="color:var(--text2)" data-ru="Работает всегда — не зависит от внешних сервисов" data-pt="Funciona sempre — não depende de serviços externos">Funciona sempre — não depende de serviços externos</span></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- PROJECTS -->
-<section class="projects" id="projects">
-  <h2>Projetos</h2>
-  <div class="proj-grid">
-    <div class="proj-card">
-      <div class="proj-name" style="color:#FFD500">GANZA</div>
-      <div class="proj-type">E-commerce &middot; Profit Share</div>
+<!-- ══ HOW IT WORKS ══ -->
+<div class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Как это работает" data-pt="Como funciona">Como funciona</div>
+  <div class="section-title" data-ru="3 шага до готового отчёта" data-pt="3 passos até o relatório pronto">3 passos até o relatório pronto</div>
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-title" data-ru="Загрузите файлы" data-pt="Envie os arquivos">Envie os arquivos</div>
+      <div class="step-desc" data-ru="Выгрузите отчёт о продажах и выписки банков. Drag & drop — никаких настроек." data-pt="Exporte o relatório de vendas e extratos bancários. Drag & drop — sem configurações.">Exporte o relatório de vendas e extratos bancários. Drag & drop — sem configurações.</div>
+      <div class="step-formats"><span class="fmt">vendas_ml.xlsx</span><span class="fmt">extrato_nubank.csv</span><span class="fmt">extrato_c6.pdf</span><span class="fmt">extrato_mp.csv</span></div>
     </div>
-    <div class="proj-card">
-      <div class="proj-name" style="color:#38bdf8">ARTUR</div>
-      <div class="proj-type">E-commerce &middot; Profit Share</div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-title" data-ru="Система классифицирует" data-pt="O sistema classifica">O sistema classifica</div>
+      <div class="step-desc" data-ru="44 правила автоматически распределяют транзакции по категориям и проектам. Неизвестные — помечаются для ручной проверки." data-pt="44 regras classificam automaticamente transações por categorias e projetos. Desconhecidas — marcadas para revisão manual.">44 regras classificam automaticamente transações por categorias e projetos. Desconhecidas — marcadas para revisão manual.</div>
     </div>
-    <div class="proj-card">
-      <div class="proj-name" style="color:#34d399">ORGANIZADORES</div>
-      <div class="proj-type">E-commerce</div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-name" style="color:#a78bfa">JOOM</div>
-      <div class="proj-type">E-commerce</div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-name" style="color:#f59e0b">ESTONIA</div>
-      <div class="proj-type">Services</div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-title" data-ru="Получите отчёты" data-pt="Receba os relatórios">Receba os relatórios</div>
+      <div class="step-desc" data-ru="ОПиУ, ДДС, Баланс по каждому проекту. Кто сколько должен, когда следующий платёж, сколько денег на счетах." data-pt="DRE, Fluxo de Caixa, Balanço por projeto. Quem deve quanto, próximo pagamento, saldo nas contas.">DRE, Fluxo de Caixa, Balanço por projeto. Quem deve quanto, próximo pagamento, saldo nas contas.</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <span>LATAMSELLERS</span> &middot; NexusBI Finance Platform &middot; 2026
-</footer>
+<!-- ══ DEMO ══ -->
+<div id="demoSection" class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Попробуйте сейчас" data-pt="Experimente agora">Experimente agora</div>
+  <div class="section-title" data-ru="Загрузите свой файл — бесплатно" data-pt="Envie seu arquivo — grátis">Envie seu arquivo — grátis</div>
+  <div class="section-sub" data-ru="Часть результата открыта сразу. Полный отчёт — после подписки." data-pt="Parte do resultado é aberta imediatamente. Relatório completo — após assinatura.">Parte do resultado é aberta imediatamente. Relatório completo — após assinatura.</div>
 
-</body>
-</html>
+  <div class="demo-wrap">
+    <div class="demo-top">
+      <div class="demo-title" data-ru="Демо-анализ файла" data-pt="Análise demo do arquivo">Análise demo do arquivo</div>
+      <div class="demo-sub" data-ru="Загрузите отчёт Vendas do Mercado Livre (CSV или XLSX)" data-pt="Envie o relatório de Vendas do Mercado Livre (CSV ou XLSX)">Envie o relatório de Vendas do Mercado Livre (CSV ou XLSX)</div>
+      <div class="dropzone" id="dz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+        <input type="file" accept=".csv,.xlsx,.xls,.pdf" onchange="handleFile(this.files[0])">
+        <div class="dz-ico">📂</div>
+        <div class="dz-txt" data-ru="Перетащите файл или нажмите для выбора" data-pt="Arraste o arquivo ou clique para selecionar">Arraste o arquivo ou clique para selecionar</div>
+        <div class="dz-hint" data-ru="CSV · XLSX · PDF · анализ через API" data-pt="CSV · XLSX · PDF · análise via API">CSV · XLSX · PDF · análise via API</div>
+      </div>
+    </div>
+
+    <div class="demo-results" id="demoResults">
+      <div class="result-open">
+        <div class="result-open-title" data-ru="✅ Открытые данные" data-pt="✅ Dados abertos">✅ Dados abertos</div>
+        <div class="result-cards">
+          <div class="rc"><div class="rc-lbl" data-ru="Тип файла" data-pt="Tipo de arquivo">Tipo de arquivo</div><div class="rc-val" style="color:var(--blue);font-size:13px" id="drFileType">vendas_ml</div></div>
+          <div class="rc"><div class="rc-lbl" data-ru="Строк / записей" data-pt="Linhas / registros">Linhas / registros</div><div class="rc-val" style="color:var(--yellow)" id="drRows">847</div></div>
+          <div class="rc"><div class="rc-lbl" data-ru="Период" data-pt="Período">Período</div><div class="rc-val" style="font-size:12px;color:var(--text)" id="drPeriod">Set–Abr 2026</div></div>
+        </div>
+        <div style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:6px" data-ru="Топ категории расходов" data-pt="Top categorias de despesas">Top categorias de despesas</div>
+        <div class="result-cats">
+          <div class="cat-row"><span style="font-size:10px;color:var(--text2);width:120px" data-ru="Реклама" data-pt="Publicidade">Publicidade</span><div class="cat-bar"><div class="cat-fill" style="width:72%;background:var(--amber)"></div></div><span class="cat-val">R$ 32.010</span></div>
+          <div class="cat-row"><span style="font-size:10px;color:var(--text2);width:120px" data-ru="Логистика" data-pt="Logística">Logística</span><div class="cat-bar"><div class="cat-fill" style="width:48%;background:var(--blue)"></div></div><span class="cat-val">R$ 17.450</span></div>
+          <div class="cat-row"><span style="font-size:10px;color:var(--text2);width:120px">Fulfillment</span><div class="cat-bar"><div class="cat-fill" style="width:38%;background:var(--purple)"></div></div><span class="cat-val">R$ 14.560</span></div>
+        </div>
+      </div>
+      <div style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px" data-ru="🔒 Полный отчёт — только для подписчиков" data-pt="🔒 Relatório completo — apenas para assinantes">🔒 Relatório completo — apenas para assinantes</div>
+      <div class="result-locked">
+        <div class="locked-blur">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+            <div style="background:#1a1d35;border-radius:8px;padding:12px"><div style="font-size:8px;color:#2d3158;margin-bottom:6px">DRE POR PROJETOS</div><div style="font-size:18px;font-weight:800;color:#2d4a3e">R$ 24.604</div></div>
+            <div style="background:#1a1d35;border-radius:8px;padding:12px"><div style="font-size:8px;color:#2d3158;margin-bottom:6px">CASH POSITION</div><div style="font-size:18px;font-weight:800;color:#2d3158">R$ 29.944</div></div>
+            <div style="background:#1a1d35;border-radius:8px;padding:12px"><div style="font-size:8px;color:#2d3158;margin-bottom:6px">BALANÇO</div><div style="font-size:18px;font-weight:800;color:#2d4a3e">R$ 13.808</div></div>
+          </div>
+          <div style="height:60px;background:#1a1d35;border-radius:8px"></div>
+        </div>
+        <div class="locked-overlay">
+          <div class="lock-icon">🔒</div>
+          <div class="lock-msg" data-ru="P&L · ДДС · Баланс · Кошельки" data-pt="DRE · Fluxo de Caixa · Balanço · Carteiras">DRE · Fluxo de Caixa · Balanço · Carteiras</div>
+          <div class="lock-sub" data-ru="Подпишитесь чтобы получить полный отчёт по всем проектам" data-pt="Assine para obter o relatório completo de todos os projetos">Assine para obter o relatório completo de todos os projetos</div>
+          <button class="btn-unlock" onclick="document.getElementById('pricingSection').scrollIntoView({behavior:'smooth'})" data-ru="Получить полный отчёт — R$ 2.000/год" data-pt="Relatório completo — R$ 2.000/ano">Relatório completo — R$ 2.000/ano</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REPORTS TABS ══ -->
+<div id="reportsSection" class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Поддерживаемые отчёты" data-pt="Relatórios disponíveis">Relatórios disponíveis</div>
+  <div class="section-title" data-ru="6 типов финансовых отчётов" data-pt="6 tipos de relatórios financeiros">6 tipos de relatórios financeiros</div>
+  <div class="section-sub" data-ru="Нажмите на вкладку чтобы увидеть демо-данные." data-pt="Clique na aba para ver dados de demonstração.">Clique na aba para ver dados de demonstração.</div>
+
+  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px">
+    <button class="rpt-tab active" onclick="showReport(0,this)">📊 DRE · P&L</button>
+    <button class="rpt-tab" onclick="showReport(1,this)" data-ru="💸 ДДС" data-pt="💸 Fluxo de Caixa">💸 Fluxo de Caixa</button>
+    <button class="rpt-tab" onclick="showReport(2,this)" data-ru="⚖️ Баланс" data-pt="⚖️ Balanço">⚖️ Balanço</button>
+    <button class="rpt-tab" onclick="showReport(3,this)" data-ru="💼 Кошельки" data-pt="💼 Carteiras">💼 Carteiras</button>
+    <button class="rpt-tab" onclick="showReport(4,this)" data-ru="📅 Платежи" data-pt="📅 Pagamentos">📅 Pagamentos</button>
+    <button class="rpt-tab" onclick="showReport(5,this)" data-ru="📦 Estoque" data-pt="📦 Estoque">📦 Estoque</button>
+  </div>
+
+  <div class="rpt-body" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;min-height:320px">
+
+    <!-- TAB 0: P&L — exact copy from pnl_wide_small_months.html -->
+    <div class="rpt-panel active" id="rpt0">
+      <div class="rp-kpi-row" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="rp-kpi rp-kpi-y"><div class="rp-lbl">Gross Revenue</div><div class="rp-val c-y">33.12M</div><div class="rp-sub">↑ +12.34% vs бюджет</div></div>
+        <div class="rp-kpi rp-kpi-g"><div class="rp-lbl">Gross Profit</div><div class="rp-val c-pos">29.74M</div><div class="rp-sub">↑ +17.50% vs бюджет</div></div>
+        <div class="rp-kpi rp-kpi-g"><div class="rp-lbl">Profit After Tax</div><div class="rp-val c-pos">18.21M</div><div class="rp-sub">↑ +28.89% vs бюджет</div></div>
+      </div>
+      <table class="rp-tbl">
+        <thead><tr><th style="text-align:left;width:220px">P&L Statement</th><th style="text-align:right">Факт</th><th style="text-align:right">Бюджет</th><th style="text-align:right">Δ vs Бюджет</th><th style="text-align:right">Δ %</th></tr></thead>
+        <tbody>
+          <tr class="r-head"><td>Gross Revenue</td><td style="text-align:right" class="c-y">33.122.672</td><td style="text-align:right">29.500.000</td><td style="text-align:right" class="c-pos">+3.622.672</td><td style="text-align:right" class="c-pos">+12.3%</td></tr>
+          <tr class="r-sub"><td>01 Distributor</td><td style="text-align:right">14.329.252</td><td style="text-align:right">13.000.000</td><td style="text-align:right" class="c-pos">+1.329.252</td><td style="text-align:right" class="c-pos">+10.2%</td></tr>
+          <tr class="r-sub"><td>02 Export</td><td style="text-align:right">14.681.584</td><td style="text-align:right">12.500.000</td><td style="text-align:right" class="c-pos">+2.181.584</td><td style="text-align:right" class="c-pos">+17.5%</td></tr>
+          <tr class="r-sub"><td>03 WholeSale</td><td style="text-align:right">4.111.836</td><td style="text-align:right">4.000.000</td><td style="text-align:right" class="c-pos">+111.836</td><td style="text-align:right" class="c-pos">+2.8%</td></tr>
+          <tr class="r-head"><td>Net Invoice Revenues</td><td style="text-align:right" class="c-neg">−775.131</td><td style="text-align:right">−600.000</td><td style="text-align:right" class="c-neg">−175.131</td><td style="text-align:right" class="c-neg">+29.2%</td></tr>
+          <tr class="r-sub"><td>04 Discount</td><td style="text-align:right" class="c-neg">−448.239</td><td style="text-align:right">−350.000</td><td style="text-align:right" class="c-neg">−98.239</td><td style="text-align:right" class="c-neg">+28.1%</td></tr>
+          <tr class="r-sub"><td>05 Return</td><td style="text-align:right" class="c-neg">−160.544</td><td style="text-align:right">−150.000</td><td style="text-align:right" class="c-neg">−10.544</td><td style="text-align:right" class="c-neg">+7.0%</td></tr>
+          <tr class="r-head"><td>Net Revenue</td><td style="text-align:right">32.347.541</td><td style="text-align:right">28.900.000</td><td style="text-align:right" class="c-pos">+3.447.541</td><td style="text-align:right" class="c-pos">+11.9%</td></tr>
+          <tr class="r-head"><td>COGS</td><td style="text-align:right" class="c-neg">−2.612.519</td><td style="text-align:right">−2.800.000</td><td style="text-align:right" class="c-pos">+187.481</td><td style="text-align:right" class="c-pos">−6.7%</td></tr>
+          <tr class="r-head"><td>Gross Profit</td><td style="text-align:right" class="c-pos">29.735.022</td><td style="text-align:right">26.100.000</td><td style="text-align:right" class="c-pos">+3.635.022</td><td style="text-align:right" class="c-pos">+13.9%</td></tr>
+          <tr class="r-head"><td>Operating Expenses</td><td style="text-align:right" class="c-neg">−5.130.348</td><td style="text-align:right">−5.000.000</td><td style="text-align:right" class="c-neg">−130.348</td><td style="text-align:right" class="c-neg">+2.6%</td></tr>
+          <tr class="r-sub"><td>08 Travel & Expenses</td><td style="text-align:right">−644.102</td><td style="text-align:right">−600.000</td><td style="text-align:right" class="c-neg">−44.102</td><td style="text-align:right" class="c-neg">+7.4%</td></tr>
+          <tr class="r-sub"><td>09 General Expenses</td><td style="text-align:right">−1.543.971</td><td style="text-align:right">−1.500.000</td><td style="text-align:right" class="c-neg">−43.971</td><td style="text-align:right" class="c-neg">+2.9%</td></tr>
+          <tr class="r-sub"><td>13 Marketing</td><td style="text-align:right">−513.233</td><td style="text-align:right">−500.000</td><td style="text-align:right" class="c-neg">−13.233</td><td style="text-align:right" class="c-neg">+2.6%</td></tr>
+          <tr class="r-total"><td>EBITDA</td><td style="text-align:right">24.604.674</td><td style="text-align:right">21.100.000</td><td style="text-align:right" class="c-pos">+3.504.674</td><td style="text-align:right" class="c-pos">+16.6%</td></tr>
+          <tr class="r-head"><td>Depreciation</td><td style="text-align:right" class="c-neg">−185.292</td><td style="text-align:right">−200.000</td><td style="text-align:right" class="c-pos">+14.708</td><td style="text-align:right" class="c-pos">−7.4%</td></tr>
+          <tr class="r-total"><td>Profit After Tax</td><td style="text-align:right">18.206.198</td><td style="text-align:right">14.130.000</td><td style="text-align:right" class="c-pos">+4.076.198</td><td style="text-align:right" class="c-pos">+28.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 1: CASH FLOW — exact copy from dds_improved.html -->
+    <div class="rpt-panel" id="rpt1">
+      <div class="rp-kpi-row" style="grid-template-columns:1fr 1fr 1fr 1fr">
+        <div class="rp-kpi rp-kpi-g"><div class="rp-lbl">Опер. прибыль</div><div class="rp-val c-pos">R$ 24.604</div><div class="rp-sub" style="color:var(--green)">↑ +18% vs Mar</div></div>
+        <div class="rp-kpi rp-kpi-b"><div class="rp-lbl">Инвест. / Партнёр</div><div class="rp-val c-b">R$ 14.280</div><div class="rp-sub">= без изм.</div></div>
+        <div class="rp-kpi rp-kpi-r"><div class="rp-lbl">Расходы</div><div class="rp-val c-neg">R$ 8.940</div><div class="rp-sub" style="color:var(--red)">↑ +6% vs Mar</div></div>
+        <div class="rp-kpi rp-kpi-y"><div class="rp-lbl">Cash Position</div><div class="rp-val c-y">R$ 29.944</div><div class="rp-sub" style="color:var(--green)">↑ +12% vs Mar</div></div>
+      </div>
+      <!-- CP table header -->
+      <div style="display:grid;grid-template-columns:1fr 50px 100px 100px;padding:6px 8px;background:var(--bg3);border-bottom:2px solid var(--yellow);border-radius:6px 6px 0 0;font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;font-weight:700">
+        <div>Статья</div><div style="text-align:right">Кол-во</div><div style="text-align:right">BRL</div><div style="text-align:right">∆ vs пред.</div>
+      </div>
+      <div class="cp-row" style="color:var(--text3)"><div><span class="cp-dot" style="background:var(--text3)"></span><span class="cp-name">Сальдо на начало</span></div><div style="text-align:right">—</div><div style="text-align:right;color:var(--text2)">R$ 0,00</div><div style="text-align:right">—</div></div>
+      <div class="cp-row z-in" onclick="this.nextElementSibling.classList.toggle('open')"><div><span class="cp-dot" style="background:var(--green)"></span><span class="cp-name">(+) Operating profit</span></div><div style="text-align:right;color:var(--text2)">847</div><div style="text-align:right;color:var(--green);font-weight:700">+R$ 24.604</div><div style="text-align:right;color:var(--green);font-size:9px">↑ +R$ 3.820</div></div>
+      <div class="cp-det"><div class="cp-det-r"><span>ARTUR · операционная прибыль</span><span>Abr 2026</span><span style="color:var(--green)">+R$ 14.240</span></div><div class="cp-det-r"><span>ORGANIZADORES · операционная прибыль</span><span>Abr 2026</span><span style="color:var(--green)">+R$ 6.890</span></div><div class="cp-det-r"><span>JOOM · операционная прибыль</span><span>Abr 2026</span><span style="color:var(--green)">+R$ 3.474</span></div></div>
+      <div class="cp-row z-in" onclick="this.nextElementSibling.classList.toggle('open')"><div><span class="cp-dot" style="background:var(--blue)"></span><span class="cp-name">(+) Пополнение USDT Bybit</span></div><div style="text-align:right;color:var(--text2)">3</div><div style="text-align:right;color:var(--blue);font-weight:700">+R$ 8.460</div><div style="text-align:right;color:var(--text3);font-size:9px">= без изм.</div></div>
+      <div class="cp-det"><div class="cp-det-r"><span>Bybit P2P · 500 USDT @ 5,640</span><span>05/04</span><span style="color:var(--blue)">+R$ 2.820</span></div><div class="cp-det-r"><span>Bybit P2P · 500 USDT @ 5,640</span><span>12/04</span><span style="color:var(--blue)">+R$ 2.820</span></div><div class="cp-det-r"><span>Bybit P2P · 500 USDT @ 5,640</span><span>21/04</span><span style="color:var(--blue)">+R$ 2.820</span></div></div>
+      <div class="cp-row z-in" onclick="this.nextElementSibling.classList.toggle('open')"><div><span class="cp-dot" style="background:var(--amber)"></span><span class="cp-name">(+) Partner Income</span></div><div style="text-align:right;color:var(--text2)">2</div><div style="text-align:right;color:var(--amber);font-weight:700">+R$ 5.820</div><div style="text-align:right;color:var(--text3);font-size:9px">= без изм.</div></div>
+      <div class="cp-det"><div class="cp-det-r"><span>ARTUR Rent $850 @ FIFO 5,640</span><span>01/04</span><span style="color:var(--amber)">+R$ 4.794</span></div><div class="cp-det-r"><span>ORGANIZADORES Rent $182</span><span>01/04</span><span style="color:var(--amber)">+R$ 1.026</span></div></div>
+      <div class="cp-row z-out" onclick="this.nextElementSibling.classList.toggle('open')"><div><span class="cp-dot" style="background:var(--red)"></span><span class="cp-name">(−) Supplier Expenses</span></div><div style="text-align:right;color:var(--text2)">8</div><div style="text-align:right;color:var(--red);font-weight:700">−R$ 6.140</div><div style="text-align:right;color:var(--red);font-size:9px">↑ +R$ 420</div></div>
+      <div class="cp-det"><div class="cp-det-r"><span>Full Express Storage</span><span>15/04</span><span style="color:var(--red)">−R$ 2.340</span></div><div class="cp-det-r"><span>Fornecedor XYZ</span><span>08/04</span><span style="color:var(--red)">−R$ 1.800</span></div><div class="cp-det-r"><span>Correios Logistics</span><span>22/04</span><span style="color:var(--red)">−R$ 2.000</span></div></div>
+      <div class="cp-row z-out" onclick="this.nextElementSibling.classList.toggle('open')"><div><span class="cp-dot" style="background:var(--red)"></span><span class="cp-name">(−) Other Expenses</span></div><div style="text-align:right;color:var(--text2)">4</div><div style="text-align:right;color:var(--red);font-weight:700">−R$ 2.800</div><div style="text-align:right;color:var(--red);font-size:9px">↑ +R$ 180</div></div>
+      <div class="cp-det"><div class="cp-det-r"><span>DAS Simples Nacional</span><span>20/04</span><span style="color:var(--red)">−R$ 880</span></div><div class="cp-det-r"><span>Contador</span><span>10/04</span><span style="color:var(--red)">−R$ 500</span></div><div class="cp-det-r"><span>ERP Software</span><span>10/04</span><span style="color:var(--red)">−R$ 350</span></div><div class="cp-det-r"><span>Armazenamento</span><span>15/04</span><span style="color:var(--red)">−R$ 450</span></div></div>
+      <div class="cp-row z-tot"><div><span class="cp-dot" style="background:var(--yellow);width:9px;height:9px"></span><span class="cp-name" style="font-weight:800;color:var(--yellow)">Cash Position</span></div><div></div><div style="text-align:right;color:var(--yellow);font-weight:800;font-size:13px">R$ 29.944</div><div style="text-align:right;color:var(--green);font-size:9px;font-weight:700">↑ +24%</div></div>
+    </div>
+
+    <!-- TAB 2: BALANCE — exact copy from balance_with_capital.html -->
+    <div class="rpt-panel" id="rpt2">
+      <div class="rp-kpi-row" style="grid-template-columns:1fr 1fr 1fr 1fr">
+        <div class="rp-kpi rp-kpi-g"><div class="rp-lbl">Итого входов</div><div class="rp-val c-pos">R$ 163.868</div><div class="rp-sub">USDT + Продажи NET</div></div>
+        <div class="rp-kpi rp-kpi-r"><div class="rp-lbl">Итого выходов</div><div class="rp-val c-neg">R$ 145.418</div><div class="rp-sub">7 статей расходов</div></div>
+        <div class="rp-kpi rp-kpi-y"><div class="rp-lbl">Сальдо проекта</div><div class="rp-val c-y">R$ 13.808</div><div class="rp-sub">после вычета аренды</div></div>
+        <div class="rp-kpi rp-kpi-p"><div class="rp-lbl">ROI на капитал</div><div class="rp-val c-p">+16.2%</div><div class="rp-sub">13.808 / 85.176 вложено</div></div>
+      </div>
+      <div class="cap-card2">
+        <div class="cap-hdr2"><span style="font-size:14px">💼</span><span style="font-size:12px;font-weight:800;color:var(--yellow)">Структура капитала</span><span style="font-size:10px;color:var(--text2);margin-left:auto">Откуда пришёл и где сейчас</span></div>
+        <div class="cap-body2">
+          <div class="cap-col2">
+            <div class="cap-col-t">Вложено (источники)</div>
+            <div class="cap-r"><div class="cap-r-dot" style="background:var(--blue)"></div><div class="cap-r-lbl">USDT Bybit P2P<small>15.580 USDT × 5,46</small></div><div class="cap-r-val c-b">R$ 85.176</div></div>
+            <div class="cap-r"><div class="cap-r-dot" style="background:var(--green)"></div><div class="cap-r-lbl">Реинвест. прибыли<small>из операций</small></div><div class="cap-r-val c-pos">R$ 78.692</div></div>
+            <div class="cap-r tot"><div class="cap-r-dot" style="background:var(--yellow);width:9px;height:9px"></div><div class="cap-r-lbl" style="font-weight:700;color:var(--text)">Всего вложено</div><div class="cap-r-val c-y">R$ 163.868</div></div>
+          </div>
+          <div class="cap-col2">
+            <div class="cap-col-t">Изъято / потрачено</div>
+            <div class="cap-r"><div class="cap-r-dot" style="background:var(--purple)"></div><div class="cap-r-lbl">Товар (себестоимость)<small>baseline_override</small></div><div class="cap-r-val c-p">−R$ 55.280</div></div>
+            <div class="cap-r"><div class="cap-r-dot" style="background:var(--amber)"></div><div class="cap-r-lbl">Операционные расходы<small>реклама, логистика, DAS…</small></div><div class="cap-r-val c-a">−R$ 90.138</div></div>
+            <div class="cap-r tot"><div class="cap-r-dot" style="background:var(--red);width:9px;height:9px"></div><div class="cap-r-lbl" style="font-weight:700;color:var(--text)">Всего потрачено</div><div class="cap-r-val c-neg">−R$ 145.418</div></div>
+          </div>
+        </div>
+        <!-- stacked bar -->
+        <div class="cap-bar-w">
+          <div class="cap-bar-s" style="width:8.4%;background:var(--yellow)"></div>
+          <div class="cap-bar-s" style="width:18.3%;background:var(--purple)"></div>
+          <div class="cap-bar-s" style="width:2.8%;background:var(--amber)"></div>
+          <div class="cap-bar-s" style="width:70.5%;background:var(--red);opacity:.4"></div>
+        </div>
+        <div class="cap-bar-l">
+          <span style="--c:var(--yellow)"><span style="background:var(--yellow);width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle"></span>Кэш 8.4%</span>
+          <span><span style="background:var(--purple);width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle"></span>Сток 18.3%</span>
+          <span><span style="background:var(--amber);width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle"></span>Дебиторка 2.8%</span>
+          <span><span style="background:var(--red);opacity:.5;width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle"></span>Потрачено 70.5%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: WALLETS — exact copy from main_dashboard_nexus.html -->
+    <div class="rpt-panel" id="rpt3">
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px">Кошелёк по проектам<span style="flex:1;height:1px;background:var(--border)"></span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+        <div class="w-card" style="border-left:3px solid var(--blue);flex:1;min-width:120px"><div class="w-lbl" style="color:var(--blue)">TOTAL</div><div class="w-val" style="color:var(--blue)">R$ 42.380</div><div class="w-sub">Все проекты</div></div>
+        <div class="w-card" style="border-left:3px solid #38bdf8;flex:1;min-width:100px"><div class="w-lbl" style="color:#38bdf8">ARTUR</div><div class="w-val" style="color:#38bdf8">R$ 18.240</div><div class="w-sub" style="color:var(--green)">+R$ 2.100 vs пр. мес.</div></div>
+        <div class="w-card" style="border-left:3px solid #34d399;flex:1;min-width:100px"><div class="w-lbl" style="color:#34d399">ORGANIZADORES</div><div class="w-val" style="color:#34d399">R$ 14.890</div><div class="w-sub" style="color:var(--green)">+R$ 980</div></div>
+        <div class="w-card" style="border-left:3px solid #a78bfa;flex:1;min-width:100px"><div class="w-lbl" style="color:#a78bfa">JOOM</div><div class="w-val" style="color:#a78bfa">R$ 6.430</div><div class="w-sub" style="color:var(--red)">−R$ 340</div></div>
+        <div class="w-card" style="border-left:3px solid #f59e0b;flex:1;min-width:100px"><div class="w-lbl" style="color:#f59e0b">ESTONIA</div><div class="w-val" style="color:#f59e0b">R$ 2.820</div><div class="w-sub">wallet_balance_brl</div></div>
+      </div>
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px">Банки<span style="flex:1;height:1px;background:var(--border)"></span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div class="bk-card" style="flex:1;min-width:140px"><div class="bk-ico">🟡</div><div><div class="bk-name">Mercado Pago</div><div class="bk-sub">FINAL_BALANCE · extrato_mp.csv</div></div><div class="bk-val c-y">R$ 8.250,70</div></div>
+        <div class="bk-card" style="flex:1;min-width:140px"><div class="bk-ico">🟣</div><div><div class="bk-name">Nubank PJ</div><div class="bk-sub">mov. do período</div></div><div class="bk-val c-p">+R$ 3.180,00</div></div>
+        <div class="bk-card" style="flex:1;min-width:140px"><div class="bk-ico">🔵</div><div><div class="bk-name">C6 Bank BRL</div><div class="bk-sub">Saldo do Dia</div></div><div class="bk-val c-b">R$ 3,68</div></div>
+        <div class="bk-card" style="flex:1;min-width:140px"><div class="bk-ico">💵</div><div><div class="bk-name">C6 Bank USD</div><div class="bk-sub">= R$ 8.014,88 (FIFO 5,6402)</div></div><div class="bk-val" style="color:#34d399">US$ 1.421,02</div></div>
+        <div class="bk-card" style="flex:1;min-width:140px"><div class="bk-ico">💳</div><div><div class="bk-name">Nubank Crédito</div><div class="bk-sub">fatura_nubank.csv</div></div><div class="bk-val c-neg">−R$ 920,50</div></div>
+      </div>
+    </div>
+
+    <!-- TAB 4: PAYMENTS — exact copy from main_dashboard_nexus.html -->
+    <div class="rpt-panel" id="rpt4">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <div style="font-size:9px;color:var(--red);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px">⬇ Ожидаемые расходы</div>
+          <table class="exp-tbl">
+            <tr><td style="color:var(--text2)">EMPRESA — Contador</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--red)">R$ 500,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">10 Mai</td></tr>
+            <tr><td style="color:var(--text2)">EMPRESA — ERP</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--red)">R$ 350,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">10 Mai</td></tr>
+            <tr><td style="color:var(--text2)">EMPRESA — Armazenamento</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--red)">R$ 450,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">15 Mai</td></tr>
+            <tr><td style="color:var(--text2)">EMPRESA — Fatura cartão</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--red)">R$ 920,50</td><td style="text-align:right;font-size:9px;color:var(--text3)">18 Mai</td></tr>
+            <tr><td style="color:var(--text2)">ESTONIA — DAS (налог)</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--red)">R$ 1.240,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">20 Mai</td></tr>
+            <tr><td style="color:var(--text2)">ARTUR — Armazenagem Full</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--red)">R$ 680,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">Mai 2026</td></tr>
+            <tr><td><strong>ИТОГО (30 дней)</strong></td><td style="text-align:right;font-family:'DM Mono',monospace"><strong>R$ 4.140,50</strong></td><td></td></tr>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--green);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px">⬆ Ожидаемые поступления</div>
+          <table class="exp-tbl">
+            <tr><td style="color:var(--text2)">ESTONIA — Lucro NFS-e (Mar)</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--green)">R$ 2.840,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">est. Mai</td></tr>
+            <tr><td style="color:var(--text2)">ARTUR — Аренда</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--green)">$850 = R$ 4.794</td><td style="text-align:right;font-size:9px;color:var(--text3)">01 Mai</td></tr>
+            <tr><td style="color:var(--text2)">ORGANIZADORES — Аренда</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--green)">$800 = R$ 4.512</td><td style="text-align:right;font-size:9px;color:var(--text3)">01 Mai</td></tr>
+            <tr><td style="color:var(--text2)">ESTONIA — Аренда ×3</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--green)">$350 = R$ 1.974</td><td style="text-align:right;font-size:9px;color:var(--text3)">01 Mai</td></tr>
+            <tr><td style="color:var(--text2)">ESTONIA — Аренда ×3</td><td style="text-align:right;font-family:'DM Mono',monospace;color:var(--green)">R$ 1.974,00</td><td style="text-align:right;font-size:9px;color:var(--text3)">01 Jun</td></tr>
+            <tr><td><strong>ИТОГО (30 дней)</strong></td><td style="text-align:right;font-family:'DM Mono',monospace"><strong>R$ 16.068,00</strong></td><td></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: STOCK — from sku_mapping_page -->
+    <div class="rpt-panel" id="rpt5">
+      <div class="rp-kpi-row" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="rp-kpi rp-kpi-y"><div class="rp-lbl">Единиц на складе</div><div class="rp-val">1.247</div></div>
+        <div class="rp-kpi rp-kpi-a"><div class="rp-lbl">Оценка стока</div><div class="rp-val c-a">R$ 30.000</div></div>
+        <div class="rp-kpi rp-kpi-b"><div class="rp-lbl">Avg cost / unit</div><div class="rp-val">R$ 24,06</div></div>
+      </div>
+      <table class="rp-tbl">
+        <thead><tr><th style="text-align:left">SKU</th><th style="text-align:left">Название</th><th style="text-align:center">Сток</th><th>Поставщик</th><th style="text-align:right">Цена (BRL)</th><th>Проект</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--text);font-weight:700">sumka</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Bolsa Feminina Couro PU</td><td style="text-align:center">84</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--text);font-weight:700">R$ 38,50</td><td><span style="background:rgba(56,189,248,0.12);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">ARTUR</span></td></tr>
+          <tr><td style="color:var(--text);font-weight:700">HB</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Handbag Casual</td><td style="text-align:center">42</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--text);font-weight:700">R$ 29,90</td><td><span style="background:rgba(56,189,248,0.12);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">ARTUR</span></td></tr>
+          <tr><td style="color:var(--text);font-weight:700">23666</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Produto Ganza 23666</td><td style="text-align:center">92</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--text);font-weight:700">R$ 58,00</td><td><span style="background:rgba(255,213,0,0.08);color:#FFD500;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">GANZA</span></td></tr>
+          <tr><td style="color:var(--text);font-weight:700">6077</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Produto Joom 6077</td><td style="text-align:center">67</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--text);font-weight:700">R$ 45,00</td><td><span style="background:rgba(167,139,250,0.1);color:#a78bfa;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">JOOM</span></td></tr>
+          <tr><td style="color:var(--text);font-weight:700">CRB-001</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Caixa Organizadora P</td><td style="text-align:center">120</td><td><span style="background:rgba(34,211,165,0.08);color:var(--green);border:1px solid rgba(34,211,165,0.15);border-radius:4px;padding:1px 6px;font-size:9px">local</span></td><td style="text-align:right;color:var(--text);font-weight:700">R$ 8,50</td><td><span style="background:rgba(52,211,153,0.1);color:#34d399;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">ORGANIZADORES</span></td></tr>
+          <tr><td style="color:var(--red);font-weight:700">w02</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Bolsa w02 Festa</td><td style="text-align:center;color:var(--amber)">8</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--red)">⚠ —</td><td><span style="background:rgba(56,189,248,0.12);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">ARTUR</span></td></tr>
+          <tr><td style="color:var(--red);font-weight:700">A21189</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Bolsa A21189 Crossbody</td><td style="text-align:center">31</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--red)">⚠ —</td><td><span style="background:rgba(56,189,248,0.12);color:#38bdf8;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">ARTUR</span></td></tr>
+          <tr><td style="color:var(--text);font-weight:700">AF 1400</td><td style="color:var(--text2);font-family:'Nunito Sans',sans-serif">Produto Ganza AF 1400</td><td style="text-align:center">45</td><td><span style="background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);border-radius:4px;padding:1px 6px;font-size:9px">import</span></td><td style="text-align:right;color:var(--red)">⚠ —</td><td><span style="background:rgba(255,213,0,0.08);color:#FFD500;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800">GANZA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FEATURES ══ -->
+<div class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Что включено" data-pt="O que está incluído">O que está incluído</div>
+  <div class="section-title" data-ru="Полный финансовый стек" data-pt="Stack financeiro completo">Stack financeiro completo</div>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-ico" style="background:rgba(255,213,0,0.1)">🏦</div><div><div class="feat-title" data-ru="4 банка из коробки" data-pt="4 bancos incluídos">4 bancos incluídos</div><div class="feat-desc" data-ru="Nubank PJ · C6 Bank BRL · C6 Bank USD · Mercado Pago. Автоматическая расшифровка PDF и CSV-выписок." data-pt="Nubank PJ · C6 Bank BRL · C6 Bank USD · Mercado Pago. Decodificação automática de extratos PDF e CSV.">Nubank PJ · C6 Bank BRL · C6 Bank USD · Mercado Pago. Decodificação automática de extratos PDF e CSV.</div></div></div>
+    <div class="feat-card"><div class="feat-ico" style="background:rgba(34,211,165,0.08)">🏷️</div><div><div class="feat-title" data-ru="44 правила классификации" data-pt="44 regras de classificação">44 regras de classificação</div><div class="feat-desc" data-ru="TrafficStars · Full Express · DAS · Correios · поставщики · коммуналка · SaaS · личные." data-pt="TrafficStars · Full Express · DAS · Correios · fornecedores · utilidades · SaaS · pessoal.">TrafficStars · Full Express · DAS · Correios · fornecedores · utilidades · SaaS · pessoal.</div></div></div>
+    <div class="feat-card"><div class="feat-ico" style="background:rgba(56,189,248,0.08)">⚙️</div><div><div class="feat-title" data-ru="Несколько проектов" data-pt="Múltiplos projetos">Múltiplos projetos</div><div class="feat-desc" data-ru="ARTUR · JOOM · GANZA · ESTONIA и любые свои. Раздельный P&L, кошельки, баланс." data-pt="ARTUR · JOOM · GANZA · ESTONIA e qualquer outro. DRE, carteiras, balanço separados.">ARTUR · JOOM · GANZA · ESTONIA e qualquer outro. DRE, carteiras, balanço separados.</div></div></div>
+    <div class="feat-card"><div class="feat-ico" style="background:rgba(167,139,250,0.08)">💱</div><div><div class="feat-title" data-ru="Учёт в двух валютах" data-pt="Contabilidade em duas moedas">Contabilidade em duas moedas</div><div class="feat-desc" data-ru="BRL + USD. Конвертация по курсу FIFO из реальных P2P-сделок Bybit." data-pt="BRL + USD. Conversão pelo câmbio FIFO de transações P2P reais da Bybit.">BRL + USD. Conversão pelo câmbio FIFO de transações P2P reais da Bybit.</div></div></div>
+    <div class="feat-card"><div class="feat-ico" style="background:rgba(245,158,11,0.08)">🇧🇷</div><div><div class="feat-title">DAS Simples Nacional</div><div class="feat-desc" data-ru="Автоматический расчёт 4,5% от выручки. Парсинг PDF-квитанций DAS." data-pt="Cálculo automático de 4,5% sobre a receita. Parsing de guias DAS em PDF.">Cálculo automático de 4,5% sobre a receita. Parsing de guias DAS em PDF.</div></div></div>
+    <div class="feat-card"><div class="feat-ico" style="background:rgba(255,87,87,0.07)">📤</div><div><div class="feat-title" data-ru="Экспорт и история" data-pt="Exportação e histórico">Exportação e histórico</div><div class="feat-desc" data-ru="Все данные хранятся локально в JSON. Экспорт правил классификации. История по месяцам с сентября 2025." data-pt="Todos os dados armazenados localmente em JSON. Exportação de regras. Histórico mensal desde setembro de 2025.">Todos os dados armazenados localmente em JSON. Exportação de regras. Histórico mensal desde setembro de 2025.</div></div></div>
+  </div>
+</div>
+
+<!-- ══ PERSONAS ══ -->
+<div class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Для кого" data-pt="Para quem">Para quem</div>
+  <div class="section-title" data-ru="Узнаёте себя?" data-pt="Se reconhece?">Se reconhece?</div>
+  <div class="persona-grid">
+    <div class="persona-card"><div class="persona-emoji">🛍️</div><div class="persona-title" data-ru="Продавец на ML" data-pt="Vendedor no ML">Vendedor no ML</div><div class="persona-pain" data-ru="«Не понимаю сколько реально зарабатываю после рекламы, возвратов и хранения»" data-pt="«Não sei quanto realmente ganho depois de publicidade, devoluções e armazenamento»">«Não sei quanto realmente ganho depois de publicidade, devoluções e armazenamento»</div><div class="persona-solve" data-ru="→ P&L покажет чистую прибыль по каждому SKU и месяцу" data-pt="→ DRE mostra lucro líquido por SKU e mês">→ DRE mostra lucro líquido por SKU e mês</div></div>
+    <div class="persona-card"><div class="persona-emoji">🤝</div><div class="persona-title" data-ru="Проект с партнёром" data-pt="Projeto com parceiro">Projeto com parceiro</div><div class="persona-pain" data-ru="«Сложно делить прибыль — непонятно что чьё, кто сколько вложил»" data-pt="«Difícil dividir lucros — não sei o que é de quem, quem investiu quanto»">«Difícil dividir lucros — não sei o que é de quem, quem investiu quanto»</div><div class="persona-solve" data-ru="→ Раздельный баланс и режим profit_share / rental для каждого проекта" data-pt="→ Balanço separado e modo profit_share / rental para cada projeto">→ Balanço separado e modo profit_share / rental para cada projeto</div></div>
+    <div class="persona-card"><div class="persona-emoji">📊</div><div class="persona-title" data-ru="Несколько направлений" data-pt="Múltiplas operações">Múltiplas operações</div><div class="persona-pain" data-ru="«Веду 3 проекта в Excel — данные везде, отчёты занимают весь день»" data-pt="«Gerencio 3 projetos no Excel — dados espalhados, relatórios levam o dia todo»">«Gerencio 3 projetos no Excel — dados espalhados, relatórios levam o dia todo»</div><div class="persona-solve" data-ru="→ Один дашборд: все проекты, все банки, все отчёты за 1 минуту" data-pt="→ Um dashboard: todos os projetos, bancos e relatórios em 1 minuto">→ Um dashboard: todos os projetos, bancos e relatórios em 1 minuto</div></div>
+  </div>
+</div>
+
+<!-- ══ NUMBERS ══ -->
+<div class="section" style="padding-top:0">
+  <div class="numbers-grid">
+    <div class="num-card"><div class="num-val">847</div><div class="num-lbl" data-ru="заказов автоматически разнесено по проектам" data-pt="pedidos classificados automaticamente por projeto">pedidos classificados automaticamente por projeto</div></div>
+    <div class="num-card"><div class="num-val">44</div><div class="num-lbl" data-ru="правила классификации из коробки" data-pt="regras de classificação incluídas">regras de classificação incluídas</div></div>
+    <div class="num-card"><div class="num-val">R$163k</div><div class="num-lbl" data-ru="выручки посчитано без единой ручной таблицы" data-pt="de receita calculada sem nenhuma planilha manual">de receita calculada sem nenhuma planilha manual</div></div>
+    <div class="num-card"><div class="num-val">60s</div><div class="num-lbl" data-ru="от загрузки файла до готового P&L" data-pt="do upload do arquivo até o DRE pronto">do upload do arquivo até o DRE pronto</div></div>
+  </div>
+</div>
+
+<!-- ══ PRICING ══ -->
+<div id="pricingSection" class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Цена" data-pt="Preço">Preço</div>
+  <div class="section-title" data-ru="Одна цена. Всё включено." data-pt="Um preço. Tudo incluído.">Um preço. Tudo incluído.</div>
+  <div class="section-sub" data-ru="Без скрытых платежей, без лимитов на проекты." data-pt="Sem taxas ocultas, sem limites de projetos.">Sem taxas ocultas, sem limites de projetos.</div>
+  <div class="price-card">
+    <div class="price-badge" data-ru="🔥 Полный доступ" data-pt="🔥 Acesso completo">🔥 Acesso completo</div>
+    <div class="price-name">Latamsellers Finance</div>
+    <div class="price-val">R$ 2.000</div>
+    <div class="price-per" data-ru="в год" data-pt="por ano">por ano</div>
+    <div class="price-monthly">= R$ 166 / mês</div>
+    <div class="price-features">
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="Дашборд с KPI, кошельками и банками" data-pt="Dashboard com KPIs, carteiras e bancos">Dashboard com KPIs, carteiras e bancos</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="ОПиУ · ДДС · Баланс по всем проектам" data-pt="DRE · Fluxo de Caixa · Balanço de todos os projetos">DRE · Fluxo de Caixa · Balanço de todos os projetos</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="Загрузка и классификация любых выписок" data-pt="Upload e classificação de qualquer extrato">Upload e classificação de qualquer extrato</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span>4 bancos: Nubank · C6 BRL · C6 USD · Mercado Pago</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="SKU маппинг и учёт стока Full Express" data-pt="SKU mapping e controle de estoque Full Express">SKU mapping e controle de estoque Full Express</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="Неограниченное количество проектов" data-pt="Projetos ilimitados">Projetos ilimitados</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="Учёт в BRL + USD, FIFO-курс Bybit" data-pt="Contabilidade em BRL + USD, câmbio FIFO Bybit">Contabilidade em BRL + USD, câmbio FIFO Bybit</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="DAS Simples Nacional — автоматический расчёт" data-pt="DAS Simples Nacional — cálculo automático">DAS Simples Nacional — cálculo automático</span></div>
+      <div class="pf-row"><span class="pf-ico">✓</span><span data-ru="История с сентября 2025 + обновления" data-pt="Histórico desde setembro 2025 + atualizações">Histórico desde setembro 2025 + atualizações</span></div>
+    </div>
+    <button class="btn-buy" data-ru="Оформить подписку за R$ 2.000 →" data-pt="Assinar por R$ 2.000 →">Assinar por R$ 2.000 →</button>
+    <div class="price-note" data-ru="Оплата через PIX · Безопасно · Мгновенный доступ" data-pt="Pagamento via PIX · Seguro · Acesso imediato">Pagamento via PIX · Seguro · Acesso imediato</div>
+  </div>
+</div>
+
+<!-- ══ FAQ ══ -->
+<div class="section" style="padding-top:0">
+  <div class="section-label" data-ru="Вопросы" data-pt="Perguntas">Perguntas</div>
+  <div class="section-title">FAQ</div>
+  <div class="faq-list">
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-ru="Безопасно ли загружать финансовые файлы?" data-pt="É seguro enviar arquivos financeiros?">É seguro enviar arquivos financeiros?</span><span class="faq-arr">▼</span></div><div class="faq-a" data-ru="Да. Все файлы обрабатываются локально — они не уходят на сервер. Ваши выписки остаются только на вашем устройстве." data-pt="Sim. Todos os arquivos são processados localmente — não são enviados para nenhum servidor. Seus extratos ficam apenas no seu dispositivo.">Sim. Todos os arquivos são processados localmente — não são enviados para nenhum servidor. Seus extratos ficam apenas no seu dispositivo.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-ru="Какие банки и форматы поддерживаются?" data-pt="Quais bancos e formatos são suportados?">Quais bancos e formatos são suportados?</span><span class="faq-arr">▼</span></div><div class="faq-a" data-ru="Nubank PJ (CSV), C6 Bank BRL (CSV), C6 Bank USD (PDF, включая зашифрованные), Mercado Pago (CSV). Формат Mercado Livre: vendas_ml.xlsx." data-pt="Nubank PJ (CSV), C6 Bank BRL (CSV), C6 Bank USD (PDF, incluindo criptografados), Mercado Pago (CSV). Formato Mercado Livre: vendas_ml.xlsx.">Nubank PJ (CSV), C6 Bank BRL (CSV), C6 Bank USD (PDF, incluindo criptografados), Mercado Pago (CSV). Formato Mercado Livre: vendas_ml.xlsx.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-ru="Можно вести несколько проектов?" data-pt="Posso gerenciar múltiplos projetos?">Posso gerenciar múltiplos projetos?</span><span class="faq-arr">▼</span></div><div class="faq-a" data-ru="Да, без ограничений. Каждый проект получает отдельный P&L, Cash Flow и Баланс." data-pt="Sim, sem limites. Cada projeto recebe DRE, Fluxo de Caixa e Balanço separados. Modos profit_share e rental para projetos com parceiros.">Sim, sem limites. Cada projeto recebe DRE, Fluxo de Caixa e Balanço separados. Modos profit_share e rental para projetos com parceiros.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-ru="Что если транзакция не распознаётся автоматически?" data-pt="E se uma transação não for reconhecida automaticamente?">E se uma transação não for reconhecida automaticamente?</span><span class="faq-arr">▼</span></div><div class="faq-a" data-ru="Неклассифицированные транзакции выводятся отдельным списком. Вы вручную назначаете категорию и проект, и правило сохраняется для следующих загрузок." data-pt="Transações não classificadas aparecem em uma lista separada. Você atribui manualmente a categoria e o projeto, e a regra é salva para os próximos uploads.">Transações não classificadas aparecem em uma lista separada. Você atribui manualmente a categoria e o projeto, e a regra é salva para os próximos uploads.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-ru="Нужны ли технические знания?" data-pt="São necessários conhecimentos técnicos?">São necessários conhecimentos técnicos?</span><span class="faq-arr">▼</span></div><div class="faq-a" data-ru="Нет. Интерфейс рассчитан на предпринимателей без IT-навыков: перетащил файл → получил отчёт." data-pt="Não. A interface é feita para empreendedores sem conhecimento de TI: arraste o arquivo → receba o relatório.">Não. A interface é feita para empreendedores sem conhecimento de TI: arraste o arquivo → receba o relatório.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-ru="Работает ли с Shopee, JOOM, Estonia?" data-pt="Funciona com Shopee, JOOM, Estonia?">Funciona com Shopee, JOOM, Estonia?</span><span class="faq-arr">▼</span></div><div class="faq-a" data-ru="Да. Поддерживаются Shopee (SHPP), JOOM, сервисные проекты типа Estonia (NFS-e, инвойсы)." data-pt="Sim. Suporta Shopee (SHPP), JOOM, projetos de serviços como Estonia (NFS-e, faturas). Cada um é mapeado para um projeto separado.">Sim. Suporta Shopee (SHPP), JOOM, projetos de serviços como Estonia (NFS-e, faturas). Cada um é mapeado para um projeto separado.</div></div>
+  </div>
+</div>
+
+<!-- ══ FOOTER CTA ══ -->
+<div class="footer-cta">
+  <h2 data-ru='Порядок в финансах<br>начинается с <span style="color:var(--yellow)">одного файла</span>' data-pt='A organização financeira<br>começa com <span style="color:var(--yellow)">um arquivo</span>'>A organização financeira<br>começa com <span style="color:var(--yellow)">um arquivo</span></h2>
+  <p data-ru="Загрузите выписку прямо сейчас — получите бесплатный анализ.<br>Полный отчёт доступен после подписки." data-pt="Envie o extrato agora — receba a análise gratuita.<br>Relatório completo disponível após assinatura.">Envie o extrato agora — receba a análise gratuita.<br>Relatório completo disponível após assinatura.</p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <button class="btn-hero btn-hero-primary" onclick="document.getElementById('demoSection').scrollIntoView({behavior:'smooth'})" data-ru="📂 Загрузить файл бесплатно" data-pt="📂 Enviar arquivo grátis">📂 Enviar arquivo grátis</button>
+    <button class="btn-hero btn-hero-ghost" onclick="document.getElementById('pricingSection').scrollIntoView({behavior:'smooth'})" data-ru="Оформить подписку R$ 2.000/год" data-pt="Assinar R$ 2.000/ano">Assinar R$ 2.000/ano</button>
+  </div>
+  <div style="margin-top:20px;font-size:10px;color:var(--text2)" data-ru="Latamsellers Finance · Финансовый учёт для продавцов Бразилии" data-pt="Latamsellers Finance · Gestão financeira para vendedores no Brasil">Latamsellers Finance · Gestão financeira para vendedores no Brasil</div>
+</div>
+
+</div>
+</div>
+
+<script>
+let LANG='pt';
+function setLang(lang){
+  LANG=lang;
+  document.querySelectorAll('[data-'+lang+']').forEach(el=>{
+    el.innerHTML=el.getAttribute('data-'+lang);
+  });
+  document.getElementById('btnRu').classList.toggle('active',lang==='ru');
+  document.getElementById('btnPt').classList.toggle('active',lang==='pt');
+}
+
+function handleDrop(e){e.preventDefault();document.getElementById('dz').classList.remove('drag');handleFile(e.dataTransfer.files[0]);}
+async function handleFile(f){
+  if(!f)return;
+  document.getElementById('dz').style.opacity='.5';
+  document.getElementById('drFileType').textContent='...';
+  document.getElementById('drRows').textContent='...';
+  document.getElementById('drPeriod').textContent='...';
+  document.getElementById('demoResults').classList.add('show');
+  // Clear old categories
+  const catsEl=document.querySelector('.result-cats');
+  if(catsEl)catsEl.innerHTML='<div style="font-size:11px;color:var(--text2)">Analisando...</div>';
+  try{
+    const fd=new FormData();
+    fd.append('file',f);
+    const res=await fetch('https://latamsellers-api-production.up.railway.app/analyze',{method:'POST',body:fd});
+    if(!res.ok)throw new Error('API error '+res.status);
+    const d=await res.json();
+    document.getElementById('drFileType').textContent=d.source_name||d.source_key||'Desconhecido';
+    document.getElementById('drRows').textContent=d.rows||0;
+    document.getElementById('drPeriod').textContent=d.period||'—';
+    function fmtBRL(v){if(v>=1000000)return'R$ '+(v/1000000).toFixed(1)+'M';if(v>=1000)return'R$ '+(v/1000).toFixed(1)+'k';return'R$ '+v.toFixed(0);}
+    if(d.opiu){
+      const o=d.opiu;
+      const opiu_html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">'
+        +'<div style="background:var(--bg2);border-left:3px solid var(--green);border-radius:8px;padding:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Receita Bruta</div><div style="font-size:18px;font-weight:800;color:var(--green)">'+fmtBRL(o.receita_bruta)+'</div></div>'
+        +'<div style="background:var(--bg2);border-left:3px solid var(--yellow);border-radius:8px;padding:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Total NET</div><div style="font-size:18px;font-weight:800;color:var(--yellow)">'+fmtBRL(o.total_net)+'</div></div>'
+        +'<div style="background:var(--bg2);border-left:3px solid var(--red);border-radius:8px;padding:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Tarifa de Venda</div><div style="font-size:14px;font-weight:700;color:var(--red)">−'+fmtBRL(o.tarifa_venda)+'</div></div>'
+        +'<div style="background:var(--bg2);border-left:3px solid var(--blue);border-radius:8px;padding:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Tarifa de Envio</div><div style="font-size:14px;font-weight:700;color:var(--blue)">−'+fmtBRL(o.tarifa_envio)+'</div></div>'
+        +'<div style="background:var(--bg2);border-left:3px solid var(--purple);border-radius:8px;padding:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Cancelamentos</div><div style="font-size:14px;font-weight:700;color:var(--purple)">−'+fmtBRL(o.cancelamentos)+'</div></div>'
+        +'<div style="background:var(--bg2);border-left:3px solid var(--amber);border-radius:8px;padding:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Vendas</div><div style="font-size:14px;font-weight:700;color:var(--amber)">'+o.vendas_count+' <span style="font-size:10px;color:var(--text3)">('+o.ads_pct+'% ads)</span></div></div>'
+        +'</div>';
+      if(catsEl)catsEl.innerHTML=opiu_html;
+    }else if(catsEl&&d.top_categories&&d.top_categories.length){
+      const maxVal=Math.max(...d.top_categories.map(c=>c.value));
+      const colors=['var(--amber)','var(--blue)','var(--purple)','var(--green)','var(--red)'];
+      catsEl.innerHTML=d.top_categories.map((c,i)=>{
+        const pct=maxVal>0?Math.round(c.value/maxVal*100):0;
+        return '<div class="cat-row"><span style="font-size:10px;color:var(--text2);width:120px">'+c.category+'</span><div class="cat-bar"><div class="cat-fill" style="width:'+pct+'%;background:'+colors[i%5]+'"></div></div><span class="cat-val">'+fmtBRL(c.value)+'</span></div>';
+      }).join('');
+    }else if(catsEl){
+      catsEl.innerHTML='<div style="font-size:11px;color:var(--text2)">Sem categorias detectadas</div>';
+    }
+  }catch(e){
+    document.getElementById('drFileType').textContent='Erro';
+    document.getElementById('drRows').textContent='—';
+    document.getElementById('drPeriod').textContent='—';
+    if(catsEl)catsEl.innerHTML='<div style="font-size:11px;color:var(--red)">'+e.message+'</div>';
+  }
+}
+function toggleFaq(el){el.classList.toggle('open');}
+function showReport(idx,btn){
+  document.querySelectorAll('.rpt-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.rpt-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rpt'+idx).classList.add('active');
+}
+</script>

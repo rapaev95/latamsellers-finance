@@ -444,10 +444,12 @@ hr, [data-testid="stHorizontalRule"] {{
 # NexusBI SIDEBAR — Branding + Lang + Theme
 # ─────────────────────────────────────────────
 
+# Persist lang & theme via query params (survive page reload)
+_qp = st.query_params
 if "lang" not in st.session_state:
-    st.session_state.lang = "ru"
+    st.session_state.lang = _qp.get("lang", "ru")
 if "theme" not in st.session_state:
-    st.session_state.theme = "night"
+    st.session_state.theme = _qp.get("theme", "night")
 
 L = st.session_state.lang
 
@@ -476,6 +478,7 @@ with _lc1:
     )
     if _lang_val != st.session_state.lang:
         st.session_state.lang = _lang_val
+        st.query_params["lang"] = _lang_val
         st.rerun()
 with _lc2:
     _theme_val = st.selectbox(
@@ -486,6 +489,7 @@ with _lc2:
     )
     if _theme_val != st.session_state.theme:
         st.session_state.theme = _theme_val
+        st.query_params["theme"] = _theme_val
         st.rerun()
 
 L = st.session_state.lang
@@ -799,7 +803,6 @@ page_options = [
     t("page_bank_rules", L),
     t("page_sku", L),
     t("page_projects", L),
-    t("page_land", L),
 ]
 page = st.sidebar.radio(
     t("menu", L), page_options, label_visibility="collapsed",
@@ -4378,20 +4381,3 @@ elif page == t("page_projects", L):
                     st.success(f"{t('project_added', L)} **{clean_name}**")
                     st.rerun()
 
-# ─────────────────────────────────────────────
-# PAGE: LANDING
-# ─────────────────────────────────────────────
-
-elif page == t("page_land", L):
-    # Remove Streamlit container padding for full-width landing
-    st.markdown("""<style>
-        .block-container{padding:0!important;max-width:100%!important}
-        iframe{width:100%!important;border:none!important}
-        [data-testid="stMainBlockContainer"]{padding:0!important;max-width:100%!important}
-    </style>""", unsafe_allow_html=True)
-    _land_path = BASE_DIR / "latamsellers_landing.html"
-    if _land_path.exists():
-        _land_html = _land_path.read_text(encoding="utf-8")
-        st.components.v1.html(_land_html, height=5000, scrolling=True)
-    else:
-        st.error(f"Landing page not found: {_land_path}")
