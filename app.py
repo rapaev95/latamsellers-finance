@@ -28,12 +28,18 @@ from config import (
 PROJECTS = load_projects()
 from i18n import current_lang, t
 from unlocker import try_unlock
+from auth import require_auth, get_current_user
 
 st.set_page_config(
     page_title="LATAMSELLERS FINANCE",
     page_icon="💛",
     layout="wide",
 )
+
+# ── Auth gate ──
+_auth_user = require_auth()
+if _auth_user is None:
+    st.stop()
 
 
 def _classification_json_fingerprint() -> tuple[tuple[str, int], ...]:
@@ -452,17 +458,22 @@ hr, [data-testid="stHorizontalRule"] {{
 L = st.session_state.lang
 
 # ── Brand Header ──
+_user_display = _auth_user.get("name") or _auth_user.get("email", "")
 st.sidebar.markdown(
-    f'<div style="display:flex;align-items:center;gap:8px;padding:12px 0 8px">'
+    f'<div style="display:flex;align-items:center;gap:8px;padding:12px 0 4px">'
     f'<div style="width:28px;height:28px;background:{_brand_box};border-radius:7px;display:flex;'
     f'align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#0b0e1a;'
     f'flex-shrink:0;font-family:DM Mono,monospace">LS</div>'
     f'<div style="font-size:12px;font-weight:800;color:{_brand_sidebar_title};line-height:1.2;'
     f'font-family:Nunito Sans,sans-serif">LATAMSELLERS<br>'
     f'<span style="font-size:9px;font-weight:600;color:{_brand_finance};letter-spacing:1px">FINANCE</span></div>'
-    f'</div>',
+    f'</div>'
+    f'<div style="font-size:10px;color:#6272a4;padding:2px 0 8px">{_user_display}</div>',
     unsafe_allow_html=True,
 )
+if st.sidebar.button("Sair / Выйти", key="logout_btn", use_container_width=True):
+    st.session_state.pop("auth_user", None)
+    st.rerun()
 
 
 # ── Functional lang & theme selectors (styled as small pills) ──
